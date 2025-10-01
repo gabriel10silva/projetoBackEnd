@@ -9,16 +9,32 @@
 </head>
 
 <body>
-    <div class="login-container">
-        <h1>Cadastro</h1>
-        <form action="#" method="post">
-            <input type="text" name="name" placeholder="Nome" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="senha" placeholder="Senha" required>
-            <button type="submit">Cadastrar</button>
-            <p class="loginBtn">Possui uma conta? <a href="../tela_login/index.html">Entrar</a></p>
-        </form>
+<div class="register-wrapper">
+  <div class="register-left">
+    <h2>Bem-vindo ao nosso sistema!</h2>
+  </div>
+  <div class="register-right">
+    <div class="register-card">
+      <h3>Criar Conta</h3>
+      <div class="input-group">
+        <input type="text" placeholder="Nome completo" required>
+      </div>
+      <div class="input-group">
+        <input type="email" placeholder="Email" required>
+      </div>
+      <div class="input-group">
+        <input type="password" placeholder="Senha" id="password" required>
+        <button type="button" id="togglePassword">👁️</button>
+      </div>
+      <div class="input-group">
+        <input type="password" placeholder="Confirmar senha" id="confirmPassword" required>
+        <button type="button" id="toggleConfirmPassword">👁️</button>
+      </div>
+      <button class="submit-btn">Cadastrar</button>
+      <a href="#" class="login-link">Já possui uma conta? Entrar</a>
     </div>
+  </div>
+</div>
 
 
     <script src="script.js"></script>
