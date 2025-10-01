@@ -1,76 +1,109 @@
 * {
-    padding: 0px;
-    margin: 0px;
     box-sizing: border-box;
-}
-
-body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  body, html {
+    height: 100%;
+    width: 100%;
+  }
+
+  body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-}
+    background: #f0f4f8;
+  }
 
-.login-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    animation-name: entrar;
-    animation-duration: 0.5s;
-    animation-timing-function: ease-out;
-    animation-fill-mode: forwards;
+  .login-wrapper {
+    display: flex;
+    width: 800px;
+    max-width: 90%;
+    height: 500px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+  }
 
-}
+  /* Lado esquerdo com imagem */
+  .login-left {
+    flex: 1;
+    background: url('https://images.unsplash.com/photo-1508780709619-79562169bc64?auto=format&fit=crop&w=800&q=80') no-repeat center center;
+    background-size: cover;
+  }
 
-.login-container h2 {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-input[type="email"],
-input[type="password"],
-input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #1684FA;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #42A5F5;
-}
-
-.login-container p {
-    margin-top: 10px;
+  /* Lado direito com formulário */
+  .login-right {
+    flex: 1;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    text-align: center;
-}
+  }
 
-.loginBtn {
-    font-size: 13px;
-}
+  .login-right h2 {
+    color: #1E88E5;
+    margin-bottom: 30px;
+    font-size: 32px;
+  }
 
+  .login-right input {
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+    transition: 0.2s all;
+  }
 
-@keyframes entrar {
-    from {
-        transform: scale(1.1);
-        opacity: 1.1;
-    
+  .login-right input:focus {
+    border-color: #1E88E5;
+    box-shadow: 0 0 5px rgba(30,136,229,0.5);
+  }
+
+  .login-right button {
+    padding: 14px 16px;
+    background: #1E88E5;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s all;
+  }
+
+  .login-right button:hover {
+    background: #1565C0;
+    transform: translateY(-2px);
+  }
+
+  .login-right .options {
+    margin-top: 16px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .login-right .options a {
+    color: #1E88E5;
+    text-decoration: none;
+  }
+
+  .login-right .options a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .login-wrapper {
+      flex-direction: column;
+      height: auto;
     }
-}
+    .login-left {
+      height: 200px;
+    }
+  }
