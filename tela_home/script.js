@@ -27,3 +27,10 @@ function toggleReplyForm(formId) {
         form.classList.toggle('hidden');
     }
 }
+
+function viewReplies(formId) {
+  const replies = document.getElementById('replyForm2');
+  if (replies) {
+    replies.classList.toggle('hidden')
+  }
+}
