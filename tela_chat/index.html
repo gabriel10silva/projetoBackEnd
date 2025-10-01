@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>projeto backend</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" />
+
+
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">
+            <h2>Projeto Backend</h2>
+        </div>
+        <ul>
+            <li><a href="../tela_home/index.html">Início</a></li>
+            <li><a href="#">Chat</a></li>
+            <li><a href="">Configuração</a></li>
+            <li><a href="">Perfil</a></li>
+        </ul>
+
+    </div>
+
+
+    <div class="app">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">Grupos</div>
+            <div class="group-list">
+                <div class="group" onclick="selectGroup('Grupo Backend')">
+                    <img src="../uploads/profile.png" alt="">
+                    <div class="group-info">
+                        <h4>Grupo Backend</h4>
+                        <p>Projeto de APIs e deploy</p>
+                    </div>
+                </div>
+                <div class="group" onclick="selectGroup('DevOps')">
+                    <img src="../uploads/profile.png" alt="">
+                    <div class="group-info">
+                        <h4>DevOps</h4>
+                        <p>Infraestrutura e servidores</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat area -->
+        <div class="chat">
+            <div class="chat-header">
+                <img src="../uploads/profile.png" alt="">
+                <div>
+                    <h4 id="chatTitle">Grupo Backend</h4>
+                    <span id="chatStatus">Ativo • 12 membros</span>
+                </div>
+            </div>
+            <div class="messages" id="messages">
+                <div class="message other">
+                    <div class="bubble">Bom dia, pessoal! Vamos revisar a API?</div>
+                    <div class="meta-time">09:00</div>
+                </div>
+                <div class="message me">
+                    <div class="bubble">Pode deixar, vou abrir um PR.</div>
+                    <div class="meta-time">09:03</div>
+                </div>
+                <div class="message other">
+                    <div class="bubble">Ótimo! Não esqueçam dos testes de integração.</div>
+                    <div class="meta-time">09:05</div>
+                </div>
+            </div>
+            <div class="composer">
+                <input type="text" id="msgInput" placeholder="Digite uma mensagem...">
+                <button id="sendBtn">
+                     <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
