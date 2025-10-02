@@ -290,7 +290,6 @@ section.chat {
     width: 100%;
 }
 
-
 .container {
     max-width: 960px;
     margin: 20px auto;
@@ -353,13 +352,11 @@ section.chat {
     font-weight: 600;
 }
 
-/* Título da Página de Tópico */
 .topic-title-page {
     font-size: 1.5em;
     margin-bottom: 20px;
 }
 
-/* Contêiner de posts */
 .post-container {
     background-color: #fff;
     border-radius: 8px;
@@ -367,7 +364,6 @@ section.chat {
     padding: 20px;
 }
 
-/* Post Individual */
 .post {
     padding-bottom: 15px;
     margin-bottom: 15px;
@@ -430,7 +426,6 @@ section.chat {
     line-height: 1.38;
 }
 
-/* Meta do Post e Ações */
 .post-meta {
     font-size: 13px;
     color: #65676b;
@@ -481,12 +476,10 @@ section.chat {
     box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
-/* Classe para esconder elementos */
 .hidden {
     display: none;
 }
 
-/* Seção de Respostas Aninhadas */
 .replies {
     margin-top: 10px;
     margin-left: 50px;
