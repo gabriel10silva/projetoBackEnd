@@ -560,7 +560,6 @@ section.chat {
     background-color: #357ab8;
 }
 
-
 @media (max-width:900px) {
     .home-section {
         flex-direction: column;
