@@ -13,73 +13,108 @@
 </head>
 
 <body>
-    <div class="header">
-        <div class="logo">
-            <h2>Projeto Backend</h2>
-        </div>
-        <ul>
-            <li><a href="../tela_home/index.html">Início</a></li>
-            <li><a href="../tela_chat/index.html">Chat</a></li>
-            <li><a href="../tela_config/index.html">Configuração</a></li>
-            <li><a href="../tela_perfil/index.html">Perfil</a></li>
+    <div class="sidebar">
+
+        <ul class="nav-list">
+            <li>
+                <a href="../tela_home/index.html">
+                    <i class="bx bx-home"></i>
+                    <span class="links_name">Início</span>
+                </a>
+                <span class="tooltip">Início</span>
+            </li>
+            <li>
+                <a href="../tela_chat/index.html">
+                    <i class='bx bx-message'></i>
+                    <span class="links_name">Chat</span>
+                </a>
+                <span class="tooltip">Chat</span>
+            </li>
+            <li>
+                <a href="../tela_perfil/index.html">
+                    <i class='bx bx-user'></i>
+                    <span class="links_name">Perfil</span>
+                </a>
+                <span class="tooltip">Perfil</span>
+            </li>
+
+            <li>
+                <a href="../tela_config/index.html">
+                    <i class='bx bx-cog'></i>
+                    <span class="links_name">Configuração</span>
+                </a>
+                <span class="tooltip">Configuração</span>
+            </li>
+
+            <li class="profile">
+                <a href="../config/logout.php"><i class="bx bx-log-out" id="log_out" title="Sair"></i></a>
+            </li>
         </ul>
-
     </div>
 
-
-    <div class="app">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="sidebar-header">Comunidades</div>
-            <div class="group-list">
-                <div class="group" onclick="selectGroup('Grupo Backend')">
+    <section class="chat">
+        <div class="chats">
+            <div class="header">
+                <div class="logo-details">
                     <img src="../uploads/profile.png" alt="">
-                    <div class="group-info">
-                        <h4>Comunidade Backend</h4>
-                        <p>Projeto de APIs e deploy</p>
-                    </div>
                 </div>
-                <div class="group" onclick="selectGroup('DevOps')">
-                    <img src="../uploads/profile.png" alt="">
-                    <div class="group-info">
-                        <h4> Comunidade DevOps</h4>
-                        <p>Infraestrutura e servidores</p>
-                    </div>
-                </div>
+                <ul>
+                    <li>
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </li>
+                </ul>
             </div>
-        </div>
+            <div class="search-chat">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search start new chat...">
+            </div>
 
-        <!-- Chat area -->
-        <div class="chat">
-            <div class="chat-header">
-                <img src="../uploads/profile.png" alt="">
-                <div>
-                    <h4 id="chatTitle">Comunidade Backend</h4>
-                    <span id="chatStatus">Ativo • 12 membros</span>
+            <div class="container">
+                <div class="chat-menssage">
+                    <div class="card active">
+                        <img src="../uploads/profile.png" alt="">
+                        <div class="info">
+                            <h3 class="nameChat">Nome Comunidade</h3>
+                            <p class="timeChat">10:30</p>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="chat-menssage">
+                    <div class="card">
+                        <img src="../uploads/profile.png" alt="">
+                        <div class="info">
+                            <h3 class="nameChat">Nome Comunidade</h3>
+                            <p class="timeChat">10:30</p>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
-            <div class="messages" id="messages">
-                <div class="message other">
-                    <div class="bubble">Bom dia, pessoal! Vamos revisar a API?</div>
-                    <div class="meta-time">09:00</div>
-                </div>
-                <div class="message me">
-                    <div class="bubble">Pode deixar, vou abrir um PR.</div>
-                    <div class="meta-time">09:03</div>
-                </div>
-                <div class="message other">
-                    <div class="bubble">Ótimo! Não esqueçam dos testes de integração.</div>
-                    <div class="meta-time">09:05</div>
-                </div>
-            </div>
-            <div class="composer">
-                <input type="text" id="msgInput" placeholder="Digite uma mensagem...">
-                <button id="sendBtn">
-                     <i class="fa-solid fa-paper-plane"></i>
-                </button>
-            </div>
+
+            
+            
         </div>
-    </div>
+        <section class="areaMenssage">
+            <div class="headerMenssage">
+                <div class="logo">
+                    <img src="../uploads/profile.png" alt="">
+                    <h3>Nome Comunidade</h3>
+                </div>
+            </div>
+
+            <div class="menssage">
+
+            </div>
+
+            <div class="menssageInput">
+                <input type="text" placeholder="Escreva sua Mensagem....">
+                <i class='bx bx-send'></i> 
+            </div>
+        </section>
+
+    </section>
+
 
 
     <script src="script.js"></script>
