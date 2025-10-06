@@ -15,8 +15,8 @@
   <div class="login-right">
     <h2>Bem-vindo de volta</h2>
     <form action="processar_login.php" method="post">
-      <input type="email" placeholder="Email" required>
-      <input type="password" placeholder="Senha" required>
+      <input type="email" placeholder="Email" name="email" required>
+      <input type="password" placeholder="Senha" name="senha" required>
       <button>Entrar</button>
     </form>
     <div class="options">

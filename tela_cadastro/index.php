@@ -15,9 +15,9 @@
   <div class="register-right">
     <h2>Seja Bem-Vindo</h2>
     <form action="processar_cadastro.php" method="POST">
-      <input type="text" placeholder="Nome" id="nome_usuario" required>
-      <input type="email" placeholder="Email" id="email" required>
-      <input type="password" placeholder="Senha" id="senha" required>
+      <input type="text" placeholder="Nome" name="nome_usuario" required>
+      <input type="email" placeholder="Email" name="email" required>
+      <input type="password" placeholder="Senha" name="senha" required>
       <button class="btn-cadastrar">Cadastrar</button>
     </form>
     <div class="options">
