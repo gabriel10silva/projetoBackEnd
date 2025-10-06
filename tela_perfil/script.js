@@ -106,24 +106,6 @@ sairSim.addEventListener('click', () => {
 });
 
 
-// MODAL historico
 
-const btnAbrir = document.getElementById("abrirHistorico");
-const popup = document.getElementById("popupHistorico");
-const fechar = document.getElementById("fecharPopup");
-
-btnAbrir.addEventListener("click", () => {
-  popup.style.display = "flex";
-});
-
-fechar.addEventListener("click", () => {
-  popup.style.display = "none";
-});
-
-window.addEventListener("click", (e) => {
-  if (e.target === popup) {
-    popup.style.display = "none";
-  }
-});
 
 
