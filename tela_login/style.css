@@ -36,6 +36,13 @@
   }
 
   /* Lado direito com formulário */
+
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
   .login-right {
     flex: 1;
     padding: 50px 40px;

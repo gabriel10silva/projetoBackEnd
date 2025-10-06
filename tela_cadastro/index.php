@@ -14,13 +14,15 @@
   <div class="register-left"></div>
   <div class="register-right">
     <h2>Seja Bem-Vindo</h2>
-    <input type="text" placeholder="Nome" required>
-    <input type="email" placeholder="Email" required>
-    <input type="password" placeholder="Senha" required>
-    <button>Cadastrar</button>
+    <form action="processar_cadastro.php" method="POST">
+      <input type="text" placeholder="Nome" id="nome_usuario" required>
+      <input type="email" placeholder="Email" id="email" required>
+      <input type="password" placeholder="Senha" id="senha" required>
+      <button class="btn-cadastrar">Cadastrar</button>
+    </form>
     <div class="options">
       <a href="#">Termos De Privacidades</a>
-      <a href="../tela_login/index.html">Fazer Login</a>
+      <a href="../tela_login/index.php">Fazer Login</a>
     </div>
   </div>
 </div>

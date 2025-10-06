@@ -14,12 +14,14 @@
   <div class="login-left"></div>
   <div class="login-right">
     <h2>Bem-vindo de volta</h2>
-    <input type="email" placeholder="Email" required>
-    <input type="password" placeholder="Senha" required>
-    <button>Entrar</button>
+    <form action="processar_login.php" method="post">
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Senha" required>
+      <button>Entrar</button>
+    </form>
     <div class="options">
       <a href="#">Esqueceu a senha?</a>
-      <a href="../tela_cadastro/index.html">Criar conta</a>
+      <a href="../tela_cadastro/index.php">Criar conta</a>
     </div>
   </div>
 </div>
