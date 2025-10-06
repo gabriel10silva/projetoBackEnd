@@ -1,3 +1,15 @@
+<?php 
+session_start();
+require_once '../config/conexao.php';
+
+if (!isset($_SESSION['id'])) {
+    header("Location: ../tela_login/index.php");
+    exit();
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
