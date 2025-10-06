@@ -22,21 +22,21 @@
                 <span class="tooltip">Pesquisa</span>
             </li>
             <li>
-                <a href="../tela_home/index.html">
+                <a href="../tela_home/index.php">
                     <i class="bx bx-home"></i>
                     <span class="links_name">Início</span>
                 </a>
                 <span class="tooltip">Início</span>
             </li>
             <li>
-                <a href="../tela_chat/index.html">
+                <a href="../tela_chat/index.php">
                     <i class='bx bx-message'></i>
                     <span class="links_name">Chat</span>
                 </a>
                 <span class="tooltip">Chat</span>
             </li>
             <li>
-                <a href="../tela_perfil/index.html">
+                <a href="../tela_perfil/index.php">
                     <i class='bx bx-user'></i>
                     <span class="links_name">Perfil</span>
                 </a>

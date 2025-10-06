@@ -45,14 +45,14 @@ if (!isset($_SESSION['id'])) {
                 <span class="tooltip">Início</span>
             </li>
             <li>
-                <a href="../tela_chat/index.html">
+                <a href="../tela_chat/index.php">
                     <i class='bx bx-message'></i>
                     <span class="links_name">Chat</span>
                 </a>
                 <span class="tooltip">Chat</span>
             </li>
             <li>
-                <a href="../tela_perfil/index.html">
+                <a href="../tela_perfil/index.php">
                     <i class='bx bx-user'></i>
                     <span class="links_name">Perfil</span>
                 </a>
@@ -60,7 +60,7 @@ if (!isset($_SESSION['id'])) {
             </li>
 
             <li>
-                <a href="../tela_config/index.html">
+                <a href="../tela_config/index.php">
                     <i class='bx bx-cog'></i>
                     <span class="links_name">Configuração</span>
                 </a>

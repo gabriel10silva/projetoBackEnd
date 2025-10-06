@@ -26,14 +26,14 @@
                 <span class="tooltip">Pesquisa</span>
             </li>
             <li>
-                <a href="../tela_home/index.html">
+                <a href="../tela_home/index.php">
                     <i class="bx bx-home"></i>
                     <span class="links_name">Início</span>
                 </a>
                 <span class="tooltip">Início</span>
             </li>
             <li>
-                <a href="../tela_chat/index.html">
+                <a href="../tela_chat/index.php">
                     <i class='bx bx-message'></i>
                     <span class="links_name">Chat</span>
                 </a>
@@ -48,7 +48,7 @@
             </li>
 
             <li>
-                <a href="../tela_config/index.html">
+                <a href="../tela_config/index.php">
                     <i class='bx bx-cog'></i>
                     <span class="links_name">Configuração</span>
                 </a>
