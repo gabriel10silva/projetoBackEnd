@@ -3,10 +3,32 @@ session_start();
 require_once '../config/conexao.php';
 
 if (!isset($_SESSION['id'])) {
-    header("Location: ../tela_login/index.php");
-    exit();
+  header("Location: ../tela_login/index.php");
+  exit();
 }
 
+$id = $_SESSION['id'];
+
+$hash = md5(strtolower(trim($id)));
+$gravatarUrl = "https://www.gravatar.com/avatar/$hash?s=200";
+
+$bio = 'Não Definida';
+$foto_perfil = $gravatarUrl;
+
+$sql = "SELECT nome_usuario, email_usuario, foto_perfil, bio, role FROM usuarios WHERE id = $id";
+$result = mysqli_query($conexao, $sql);
+$user = mysqli_fetch_assoc($result);
+
+
+if ($user) {
+  $bio = $user['bio'] ?? $bio;
+  if (!empty($user['foto_perfil'])) {
+    $foto_path = '../uploads/' . $user['foto_perfil'];
+    if (file_exists($foto_path)) {
+      $foto_perfil = $foto_path;
+    }
+  }
+}
 
 ?>
 
@@ -25,76 +47,76 @@ if (!isset($_SESSION['id'])) {
 </head>
 
 <body>
-    <div class="sidebar">
-        <div class="logo-details">
-            <i class="bx bx-pen icon"></i>
-            <div class="logo_name">projeto back</div>
-            <i class="bx bx-menu" id="btn"></i>
-        </div>
-        <ul class="nav-list">
-            <li>
-                <i class="bx bx-search"></i>
-                <input type="text" placeholder="Pesquisar..." id="buscar" name="busca" aria-label="Pesquisar" />
-                <span class="tooltip">Pesquisa</span>
-            </li>
-            <li>
-                <a href="../tela_home/index.php">
-                    <i class="bx bx-home"></i>
-                    <span class="links_name">Início</span>
-                </a>
-                <span class="tooltip">Início</span>
-            </li>
-            <li>
-                <a href="../tela_chat/index.php">
-                    <i class='bx bx-message'></i>
-                    <span class="links_name">Chat</span>
-                </a>
-                <span class="tooltip">Chat</span>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-user'  ></i> 
-                    <span class="links_name">Perfil</span>
-                </a>
-                <span class="tooltip">Perfil</span>
-            </li>
-
-            <li>
-                <a href="../tela_config/index.php">
-                    <i class='bx bx-cog'></i>
-                    <span class="links_name">Configuração</span>
-                </a>
-                <span class="tooltip">Configuração</span>
-            </li>
-
-            <li class="profile">
-                <div class="profile-details">
-                    <img src="../uploads/profile.png" alt="Imagem do perfil" />
-                    <div class="name_job">
-                        <div class="name">Nome Usuário</div>
-                        <div class="job">Tipo de Usuário</div>
-
-                    </div>
-                </div>
-                <a href="../config/logout.php"><i class="bx bx-log-out" id="log_out" title="Sair"></i></a>
-            </li>
-        </ul>
+  <div class="sidebar">
+    <div class="logo-details">
+      <i class="bx bx-pen icon"></i>
+      <div class="logo_name">projeto back</div>
+      <i class="bx bx-menu" id="btn"></i>
     </div>
+    <ul class="nav-list">
+      <li>
+        <i class="bx bx-search"></i>
+        <input type="text" placeholder="Pesquisar..." id="buscar" name="busca" aria-label="Pesquisar" />
+        <span class="tooltip">Pesquisa</span>
+      </li>
+      <li>
+        <a href="../tela_home/index.php">
+          <i class="bx bx-home"></i>
+          <span class="links_name">Início</span>
+        </a>
+        <span class="tooltip">Início</span>
+      </li>
+      <li>
+        <a href="../tela_chat/index.php">
+          <i class='bx bx-message'></i>
+          <span class="links_name">Chat</span>
+        </a>
+        <span class="tooltip">Chat</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-user'></i>
+          <span class="links_name">Perfil</span>
+        </a>
+        <span class="tooltip">Perfil</span>
+      </li>
+
+      <li>
+        <a href="../tela_config/index.php">
+          <i class='bx bx-cog'></i>
+          <span class="links_name">Configuração</span>
+        </a>
+        <span class="tooltip">Configuração</span>
+      </li>
+
+      <li class="profile">
+        <div class="profile-details">
+          <img src="<?= htmlspecialchars($foto_perfil) ?>" alt="Imagem do perfil" />
+          <div class="name_job">
+            <div class="name"><?= htmlspecialchars($user['nome_usuario']) ?></div>
+            <div class="job"><?= htmlspecialchars($user['role']) ?></div>
+
+          </div>
+        </div>
+        <a href="../config/logout.php"><i class="bx bx-log-out" id="log_out" title="Sair"></i></a>
+      </li>
+    </ul>
+  </div>
 
   <section class="home-section">
     <div class="container">
 
       <!-- Perfil - Visualização -->
       <div class="profile-section">
-        <img src="../uploads/profile.png" alt="Foto do Usuário">
-        <h1>Nome Usuário</h1>
-        <p>email Usuário</p>
-        <p>Bio usuário</p>
+        <img src="<?= htmlspecialchars($foto_perfil) ?>" alt="Foto do Usuário">
+        <h1><?= htmlspecialchars($user['nome_usuario']) ?></h1>
+        <p><?= htmlspecialchars($user['email_usuario']) ?></p>
+        <p><?= htmlspecialchars($bio) ?></p>
 
         <div class="stats">
-              <div class="stat">(Número) - Comunidades Ativas</div>
-              <div class="stat">Não sei o que colocar</div>
-            </div>
+          <div class="stat">(Número) - Comunidades Ativas</div>
+          <div class="stat">Não sei o que colocar</div>
+        </div>
       </div>
 
 

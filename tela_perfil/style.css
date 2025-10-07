@@ -244,13 +244,20 @@ body {
     margin-right: 10px;
 }
 
-.sidebar li.profile .name,
+.sidebar li.profile .name {
+    font-size: 15px;
+    font-weight: bold;
+    color: #05569e;
+    white-space: nowrap;
+}
+
 .sidebar li.profile .job {
     font-size: 15px;
     font-weight: 400;
     color: #05569e;
     white-space: nowrap;
 }
+
 
 .sidebar li.profile .job {
     font-size: 12px;
