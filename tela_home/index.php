@@ -7,6 +7,25 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 
+$id = $_SESSION['id'];
+
+
+// Busca os dados do usuário com MySQLi
+$sql = "SELECT nome_usuario, foto_perfil, role FROM usuarios WHERE id = $id";
+$resultado = mysqli_query($conexao, $sql);
+
+if (!$resultado || mysqli_num_rows($resultado) === 0) {
+    echo "Usuário não encontrado.";
+    exit;
+}
+
+$user = mysqli_fetch_assoc($resultado);
+
+// Define imagem padrão caso não tenha foto
+$foto_perfil = !empty($user['profile_picture'])
+    ? $user['profile_picture']
+    : '../uploads/profile.png';
+
 
 ?>
 
@@ -69,10 +88,10 @@ if (!isset($_SESSION['id'])) {
 
             <li class="profile">
                 <div class="profile-details">
-                    <img src="../uploads/profile.png" alt="Imagem do perfil" />
+                    <img src="<?= htmlspecialchars($foto_perfil) ?>" alt="Imagem do perfil" />
                     <div class="name_job">
-                        <div class="name">Nome Usuário</div>
-                        <div class="job">Tipo de Usuário</div>
+                        <div class="name"><?= htmlspecialchars ($user['nome_usuario']) ?></div>
+                        <div class="job"><?= htmlspecialchars($user['role']) ?></div>
 
                     </div>
                 </div>
