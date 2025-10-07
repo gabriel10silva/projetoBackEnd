@@ -10,7 +10,7 @@ if (!isset($_SESSION['id'])) {
 $id = $_SESSION['id'];
 
 $hash = md5(strtolower(trim($id)));
-$gravatarUrl = "https://www.gravatar.com/avatar/$hash?s=200";
+$gravatarUrl = "../uploads/profile.png";
 
 $bio = 'Não Definida';
 $foto_perfil = $gravatarUrl;

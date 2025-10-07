@@ -8,7 +8,8 @@ if (!isset($_SESSION['id'])) {
 }
 
 $id = $_SESSION['id'];
-
+$gravatarUrl = "../uploads/profile.png";
+$foto_perfil = $gravatarUrl;
 
 // Busca os dados do usuário com MySQLi
 $sql = "SELECT nome_usuario, foto_perfil, role FROM usuarios WHERE id = $id";
@@ -22,10 +23,14 @@ if (!$resultado || mysqli_num_rows($resultado) === 0) {
 $user = mysqli_fetch_assoc($resultado);
 
 // Define imagem padrão caso não tenha foto
-$foto_perfil = !empty($user['profile_picture'])
-    ? $user['profile_picture']
-    : '../uploads/profile.png';
-
+if ($user) {
+    if (!empty($user['foto_perfil'])) {
+      $foto_path = '../uploads/' . $user['foto_perfil'];
+      if (file_exists($foto_path)) {
+        $foto_perfil = $foto_path;
+      }
+    }
+  }
 
 ?>
 
@@ -117,9 +122,9 @@ $foto_perfil = !empty($user['profile_picture'])
                 <div class="post-container">
                     <div class="post">
                         <div class="post-author">
-                            <img src="../uploads/profile.png" alt="Avatar de João Silva" class="author-avatar">
+                            <img src="<?= htmlspecialchars($foto_perfil) ?>" alt="foto de perfil" class="author-avatar">
                             <div class="author-info">
-                                <span class="author-name">João Silva</span>
+                                <span class="author-name">Usuário</span>
                             </div>
                         </div>
                         <div class="post-content">
@@ -136,7 +141,7 @@ $foto_perfil = !empty($user['profile_picture'])
                             </div>
                         </div>
                         <div class="reply-form hidden" id="replyForm1">
-                            <img src="../uploads/profile.png" alt="Seu Avatar" class="author-avatar">
+                            <img src="<?= htmlspecialchars($foto_perfil) ?>" alt="foto de perfil" class="author-avatar">
                             <textarea placeholder="Escreva uma resposta..."></textarea>
                             <button class="btnSend">
                                 <i class="fa-solid fa-paper-plane"></i>
@@ -145,7 +150,7 @@ $foto_perfil = !empty($user['profile_picture'])
                         <div class="replies hidden" id="replyForm2">
                             <div class="post reply-post">
                                 <div class="post-author">
-                                    <img src="../uploads/profile.png" alt="Avatar de Maria Oliveira"
+                                    <img src="<?= htmlspecialchars($foto_perfil) ?>" alt="foto de perfil"
                                         class="author-avatar">
                                     <div class="author-info">
                                         <span class="author-name">Maria Oliveira</span>
@@ -198,26 +203,8 @@ $foto_perfil = !empty($user['profile_picture'])
                             <a href="#" class="btn-entrar">Entrar</a>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="../uploads/profile.png" alt="Foto do grupo">
-                            <h2>Nome do Grupo</h2>
-                        </div>
-                        <div class="card-body">
-                            <p>Essa é uma breve descrição sobre o grupo, seu objetivo ou tema.</p>
-                            <a href="#" class="btn-entrar">Entrar</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="../uploads/profile.png" alt="Foto do grupo">
-                            <h2>Nome do Grupo</h2>
-                        </div>
-                        <div class="card-body">
-                            <p>Essa é uma breve descrição sobre o grupo, seu objetivo ou tema.</p>
-                            <a href="#" class="btn-entrar">Entrar</a>
-                        </div>
-                    </div>
+                 
+                  
                 </div>
         </section>
     </section>
