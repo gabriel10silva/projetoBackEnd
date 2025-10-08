@@ -123,7 +123,7 @@ if ($user) {
       <!-- Perfil - Edição -->
       <div class="edit-section">
         <h2>Editar Perfil</h2>
-        <form id="editForm" onsubmit="return confirmarEdicao();" action="processar_edit.php" method="post" enctype="multipart/form-data">
+        <form id="editForm" action="processar_edit.php" method="post" enctype="multipart/form-data">
           <div class="form-group">
             <label for="nome">Nome</label>
             <input type="text" id="nome" name="nome" placeholder="Seu nome completo">
