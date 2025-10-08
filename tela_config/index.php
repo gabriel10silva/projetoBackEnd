@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 require_once '../config/conexao.php';
 
@@ -15,6 +15,7 @@ if (!isset($_SESSION['id'])) {
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,6 +24,7 @@ if (!isset($_SESSION['id'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" />
 </head>
+
 <body>
     <div class="sidebar">
         <div class="logo-details">
@@ -49,6 +51,13 @@ if (!isset($_SESSION['id'])) {
                     <span class="links_name">Chat</span>
                 </a>
                 <span class="tooltip">Chat</span>
+            </li>
+            <li>
+                <a href="../tela_myquests/">
+                    <i class="fa-regular fa-folder"></i>
+                    <span class="links_name">Minhas Dúvidas</span>
+                </a>
+                <span class="tooltip">Minhas Dúvidas</span>
             </li>
             <li>
                 <a href="../tela_perfil/index.php">
@@ -93,7 +102,7 @@ if (!isset($_SESSION['id'])) {
                     </ul>
                 </nav>
             </aside>
-        
+
             <main class="painel-configuracoes__conteudo">
                 <section id="privacidade" class="painel-configuracoes__cartao">
                     <h3 class="painel-configuracoes__subtitulo">Privacidade</h3>
@@ -111,7 +120,7 @@ if (!isset($_SESSION['id'])) {
                     </div>
                     <button type="submit" class="btn-acao btn-primario">Salvar Alterações</button>
                 </section>
-        
+
                 <section id="notificacoes" class="painel-configuracoes__cartao oculta">
                     <h3 class="painel-configuracoes__subtitulo">Notificações</h3>
                     <div class="form-grupo">
@@ -128,7 +137,7 @@ if (!isset($_SESSION['id'])) {
                     </div>
                     <button type="submit" class="btn-acao btn-primario">Salvar Alterações</button>
                 </section>
-        
+
                 <section id="aparencia" class="painel-configuracoes__cartao oculta">
                     <h3 class="painel-configuracoes__subtitulo">Aparência</h3>
                     <div class="form-grupo">
@@ -140,16 +149,17 @@ if (!isset($_SESSION['id'])) {
                     </div>
                     <button type="submit" class="btn-acao btn-primario">Salvar Alterações</button>
                 </section>
-        
+
                 <section id="conta" class="painel-configuracoes__cartao oculta">
                     <h3 class="painel-configuracoes__subtitulo">Minha Conta</h3>
                     <button class="btn-acao btn-perigo">Excluir Conta</button>
                 </section>
             </main>
         </div>
-        
+
     </section>
 
     <script src="script.js"></script>
 </body>
+
 </html>

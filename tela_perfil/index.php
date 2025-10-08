@@ -74,6 +74,13 @@ if ($user) {
         <span class="tooltip">Chat</span>
       </li>
       <li>
+        <a href="../tela_myquests/">
+          <i class="fa-regular fa-folder"></i>
+          <span class="links_name">Minhas Dúvidas</span>
+        </a>
+        <span class="tooltip">Minhas Dúvidas</span>
+      </li>
+      <li>
         <a href="#">
           <i class='bx bx-user'></i>
           <span class="links_name">Perfil</span>

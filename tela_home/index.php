@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 require_once '../config/conexao.php';
 
@@ -25,12 +25,12 @@ $user = mysqli_fetch_assoc($resultado);
 // Define imagem padrão caso não tenha foto
 if ($user) {
     if (!empty($user['foto_perfil'])) {
-      $foto_path = '../uploads/' . $user['foto_perfil'];
-      if (file_exists($foto_path)) {
-        $foto_perfil = $foto_path;
-      }
+        $foto_path = '../uploads/' . $user['foto_perfil'];
+        if (file_exists($foto_path)) {
+            $foto_perfil = $foto_path;
+        }
     }
-  }
+}
 
 ?>
 
@@ -76,6 +76,13 @@ if ($user) {
                 <span class="tooltip">Chat</span>
             </li>
             <li>
+                <a href="../tela_myquests/">
+                <i class="fa-regular fa-folder"></i>
+                    <span class="links_name">Minhas Dúvidas</span>
+                </a>
+                <span class="tooltip">Minhas Dúvidas</span>
+            </li>
+            <li>
                 <a href="../tela_perfil/index.php">
                     <i class='bx bx-user'></i>
                     <span class="links_name">Perfil</span>
@@ -95,7 +102,7 @@ if ($user) {
                 <div class="profile-details">
                     <img src="<?= htmlspecialchars($foto_perfil) ?>" alt="Imagem do perfil" />
                     <div class="name_job">
-                        <div class="name"><?= htmlspecialchars ($user['nome_usuario']) ?></div>
+                        <div class="name"><?= htmlspecialchars($user['nome_usuario']) ?></div>
                         <div class="job"><?= htmlspecialchars($user['role']) ?></div>
 
                     </div>
@@ -113,8 +120,7 @@ if ($user) {
                 <div class="addQuest">
                     <p class="topic-title-page">Possui alguma duvida?</p>
                     <div class="inputQuest">
-                        <textarea name="" id="" placeholder="Digite sua dúvida..."></textarea>
-                        <button>Publicar</button>
+                        <button>Adicionar uma duvida</button>
                     </div>
                 </div>
 
@@ -203,8 +209,8 @@ if ($user) {
                             <a href="#" class="btn-entrar">Entrar</a>
                         </div>
                     </div>
-                 
-                  
+
+
                 </div>
         </section>
     </section>

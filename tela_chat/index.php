@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 require_once '../config/conexao.php';
 
@@ -41,6 +41,13 @@ if (!isset($_SESSION['id'])) {
                     <span class="links_name">Chat</span>
                 </a>
                 <span class="tooltip">Chat</span>
+            </li>
+            <li>
+                <a href="../tela_myquests/">
+                    <i class="fa-regular fa-folder"></i>
+                    <span class="links_name">Minhas Dúvidas</span>
+                </a>
+                <span class="tooltip">Minhas Dúvidas</span>
             </li>
             <li>
                 <a href="../tela_perfil/index.php">
@@ -90,7 +97,7 @@ if (!isset($_SESSION['id'])) {
                             <p class="timeChat">10:30</p>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="chat-menssage">
                     <div class="card">
@@ -100,12 +107,12 @@ if (!isset($_SESSION['id'])) {
                             <p class="timeChat">10:30</p>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
 
-            
-            
+
+
         </div>
         <section class="areaMenssage">
             <div class="headerMenssage">
@@ -121,7 +128,7 @@ if (!isset($_SESSION['id'])) {
 
             <div class="menssageInput">
                 <input type="text" placeholder="Escreva sua Mensagem....">
-                <i class='bx bx-send'></i> 
+                <i class='bx bx-send'></i>
             </div>
         </section>
 

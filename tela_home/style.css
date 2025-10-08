@@ -317,25 +317,6 @@ section.chat {
     margin-bottom: 20px;
 }
 
-.addQuest textarea {
-    flex-grow: 1;
-    width: 100%;
-    padding: 8px 12px;
-    margin-left: 8px;
-    border: 1px solid #ccd0d5;
-    border-radius: 18px;
-    background-color: #ffffff;
-    font-family: inherit;
-    font-size: 15px;
-    line-height: 1.34;
-    box-sizing: border-box;
-    resize: none;
-    height: 36px;
-    overflow: hidden;
-    transition: all 0.2s ease;
-}
-
-
 .addQuest .inputQuest button {
     padding: 10px;
     border-radius: 18px;
