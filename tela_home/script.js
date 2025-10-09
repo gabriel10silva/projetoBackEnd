@@ -20,18 +20,17 @@ function menuBtnChange() {
   }
 }
 
-
 function toggleReplyForm(formId) {
-    const form = document.getElementById(formId);
-    if (form) {
-        form.classList.toggle('hidden');
-    }
+  const form = document.getElementById(formId);
+  if (form) {
+      form.classList.toggle('hidden');
+  }
 }
 
-function viewReplies(formId) {
-  const replies = document.getElementById('replyForm2');
+function viewReplies(repliesId) {
+  const replies = document.getElementById(repliesId);
   if (replies) {
-    replies.classList.toggle('hidden')
+      replies.classList.toggle('hidden');
   }
 }
 

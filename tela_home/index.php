@@ -32,6 +32,12 @@ if ($user) {
     }
 }
 
+$sqlDuvidas = "SELECT d.*, u.nome_usuario, u.foto_perfil 
+               FROM duvidas d 
+               JOIN usuarios u ON d.id_usuario = u.id
+               ORDER BY d.data_criacao DESC";
+$resultDuvidas = mysqli_query($conexao, $sqlDuvidas);
+
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +81,7 @@ if ($user) {
             </li>
             <li>
                 <a href="../tela_myquests/">
-                <i class="fa-regular fa-folder"></i>
+                    <i class="fa-regular fa-folder"></i>
                     <span class="links_name">Minhas Dúvidas</span>
                 </a>
                 <span class="tooltip">Minhas Dúvidas</span>
@@ -111,107 +117,125 @@ if ($user) {
     </div>
 
     <section class="home-section">
-
-        <section class="chat">
-            <main class="container">
-
-                <div class="addQuest">
-                    <p class="topic-title-page">Possui alguma duvida?</p>
-                    <div class="inputQuest">
-                        <button onclick="addDuvida()">Adicionar uma duvida</button>
-                    </div>
+    <section class="chat">
+        <main class="container">
+            <div class="addQuest">
+                <p class="topic-title-page">Possui alguma dúvida?</p>
+                <div class="inputQuest">
+                    <button>Adicionar uma dúvida</button>
                 </div>
+            </div>
 
-                <h2 class="topic-title-page">Como começar com HTML e CSS?</h2>
-                <div class="post-container">
-                    <div class="post">
+            <div class="post-container">
+                <?php while ($duvida = mysqli_fetch_assoc($resultDuvidas)): 
+                    $postId = $duvida['id'];
+                ?>
+                    <div class="post" id="post<?= $postId ?>">
+                        <!-- Autor do post -->
                         <div class="post-author">
-                            <img src="<?= htmlspecialchars($foto_perfil) ?>" alt="foto de perfil" class="author-avatar">
+                            <img src="<?= !empty($duvida['foto_perfil']) ? '../uploads/'.$duvida['foto_perfil'] : '../uploads/profile.png' ?>" class="author-avatar">
                             <div class="author-info">
-                                <span class="author-name">Usuário</span>
+                                <span class="author-name"><?= htmlspecialchars($duvida['nome_usuario']) ?></span>
                             </div>
                         </div>
+
+                        <!-- Conteúdo do post -->
                         <div class="post-content">
-                            <p>Olá, pessoal! Sou novo na área e gostaria de saber quais os primeiros passos para
-                                aprender
-                                HTML e CSS. Alguma dica de tutorial ou projeto para iniciantes?</p>
+                            <h3><?= htmlspecialchars($duvida['titulo']) ?></h3>
+                            <p><?= htmlspecialchars($duvida['conteudo']) ?></p>
                         </div>
+
+                        <!-- Meta do post -->
                         <div class="post-meta">
-                            <span class="post-date">01/10/2025</span>
+                            <span class="post-date"><?= date('d/m/Y', strtotime($duvida['data_criacao'])) ?></span>
                             <div class="post-actions">
-                                <a href="#">Curtir</a>
-                                <a href="#" onclick="toggleReplyForm('replyForm1')">Responder</a>
-                                <a href="#" onclick="viewReplies()">Ver Respostas</a>
+                                <a href="#">Curtir (<?= $duvida['curtidas'] ?>)</a>
+                                <a href="#" onclick="toggleReplyForm('replyForm<?= $postId ?>')">Responder</a>
+                                <a href="#" onclick="viewReplies('replies<?= $postId ?>')">Ver Respostas</a>
                             </div>
                         </div>
-                        <div class="reply-form hidden" id="replyForm1">
-                            <img src="<?= htmlspecialchars($foto_perfil) ?>" alt="foto de perfil" class="author-avatar">
+
+                        <!-- Formulário do post -->
+                        <div class="reply-form hidden" id="replyForm<?= $postId ?>">
+                            <img src="<?= $foto_perfil ?>" class="author-avatar">
                             <textarea placeholder="Escreva uma resposta..."></textarea>
-                            <button class="btnSend">
-                                <i class="fa-solid fa-paper-plane"></i>
-                            </button>
+                            <button class="btnSend">Enviar</button>
                         </div>
-                        <div class="replies hidden" id="replyForm2">
-                            <div class="post reply-post">
-                                <div class="post-author">
-                                    <img src="<?= htmlspecialchars($foto_perfil) ?>" alt="foto de perfil"
-                                        class="author-avatar">
-                                    <div class="author-info">
-                                        <span class="author-name">Maria Oliveira</span>
+
+                        <!-- Respostas -->
+                        <div class="replies hidden" id="replies<?= $postId ?>">
+                            <?php
+                            $sqlRespostas = "SELECT r.*, u.nome_usuario, u.foto_perfil 
+                                             FROM respostas r
+                                             JOIN usuarios u ON r.id_usuario = u.id
+                                             WHERE r.id_duvida = $postId
+                                             ORDER BY r.data_resposta ASC";
+                            $resultRespostas = mysqli_query($conexao, $sqlRespostas);
+                            while($resposta = mysqli_fetch_assoc($resultRespostas)):
+                                $replyId = $resposta['id'];
+                            ?>
+                                <div class="post reply-post" id="reply<?= $replyId ?>">
+                                    <div class="post-author">
+                                        <img src="<?= !empty($resposta['foto_perfil']) ? '../uploads/'.$resposta['foto_perfil'] : '../uploads/profile.png' ?>" class="author-avatar">
+                                        <div class="author-info">
+                                            <span class="author-name"><?= htmlspecialchars($resposta['nome_usuario']) ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="post-content">
+                                        <p><?= htmlspecialchars($resposta['conteudo']) ?></p>
+                                    </div>
+                                    <div class="post-meta">
+                                        <span class="post-date"><?= date('d/m/Y', strtotime($resposta['data_resposta'])) ?></span>
+                                        <div class="post-actions">
+                                            <a href="#">Curtir</a>
+                                            <a href="#" onclick="toggleReplyForm('replyForm<?= $replyId ?>')">Responder</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Formulário dentro da resposta -->
+                                    <div class="reply-form hidden" id="replyForm<?= $replyId ?>">
+                                        <img src="<?= $foto_perfil ?>" class="author-avatar">
+                                        <textarea placeholder="Escreva uma resposta..."></textarea>
+                                        <button class="btnSend">Enviar</button>
                                     </div>
                                 </div>
-                                <div class="post-content">
-                                    <p>Eu recomendo o MDN Web Docs. A documentação deles é muito completa e fácil de
-                                        entender. Tente criar um site simples como um currículo online!</p>
-                                </div>
-                                <div class="post-meta">
-                                    <span class="post-date">01/10/2025</span>
-                                    <div class="post-actions">
-                                        <a href="#">Curtir</a>
-                                        <a href="#" onclick="toggleReplyForm('replyForm2')">Responder</a>
-                                    </div>
-                                </div>
-                                <div class="reply-form hidden" id="replyForm2">
-                                    <img src="../uploads/profile.png" alt="Seu Avatar" class="author-avatar">
-                                    <textarea placeholder="Escreva uma resposta..."></textarea>
-                                </div>
-                            </div>
+                            <?php endwhile; ?>
                         </div>
                     </div>
-                </div>
-            </main>
-        </section>
-
-        <section class="groups">
-            <div class="container">
-                <h2 class="topic-title-page">Comunidades Recomendadas</h2>
-                <div class="cards">
-
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="../uploads/profile.png" alt="Foto do grupo">
-                            <h2>Nome do Grupo</h2>
-                        </div>
-                        <div class="card-body">
-                            <p>Essa é uma breve descrição sobre o grupo, seu objetivo ou tema.</p>
-                            <a href="#" class="btn-entrar">Entrar</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="../uploads/profile.png" alt="Foto do grupo">
-                            <h2>Nome do Grupo</h2>
-                        </div>
-                        <div class="card-body">
-                            <p>Essa é uma breve descrição sobre o grupo, seu objetivo ou tema.</p>
-                            <a href="#" class="btn-entrar">Entrar</a>
-                        </div>
-                    </div>
-
-
-                </div>
-        </section>
+                <?php endwhile; ?>
+            </div>
+        </main>
     </section>
+
+    <!-- Comunidades Recomendadas -->
+    <section class="groups">
+        <div class="container">
+            <h2 class="topic-title-page">Comunidades Recomendadas</h2>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-header">
+                        <img src="../uploads/profile.png" alt="Foto do grupo">
+                        <h2>Grupo de Matemática</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>Discussões e dúvidas sobre Matemática.</p>
+                        <a href="#" class="btn-entrar">Entrar</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <img src="../uploads/profile.png" alt="Foto do grupo">
+                        <h2>Grupo de Programação</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>Compartilhe códigos e tire dúvidas de programação.</p>
+                        <a href="#" class="btn-entrar">Entrar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
 
 
 
