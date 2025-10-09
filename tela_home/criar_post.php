@@ -7,54 +7,18 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 
-$id = $_SESSION['id'];
-$gravatarUrl = "../uploads/profile.png";
-$foto_perfil = $gravatarUrl;
+$id_usuario = $_SESSION['id'];
 
-// Busca os dados do usuário com MySQLi
-$sql = "SELECT nome_usuario, foto_perfil, role FROM usuarios WHERE id = $id";
-$resultado = mysqli_query($conexao, $sql);
-
-if (!$resultado || mysqli_num_rows($resultado) === 0) {
-    echo "Usuário não encontrado.";
-    exit;
-}
-
-$user = mysqli_fetch_assoc($resultado);
-
-// Define imagem padrão caso não tenha foto
-if ($user) {
-    if (!empty($user['foto_perfil'])) {
-        $foto_path = '../uploads/' . $user['foto_perfil'];
-        if (file_exists($foto_path)) {
-            $foto_perfil = $foto_path;
-        }
-    }
-}
-
-$mensagem = "";
-
-// Se o formulário foi enviado
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $titulo = mysqli_real_escape_string($conexao, trim($_POST['titulo']));
-    $conteudo = mysqli_real_escape_string($conexao, trim($_POST['conteudo']));
+    $titulo = mysqli_real_escape_string($conexao, $_POST['titulo']);
+    $conteudo = mysqli_real_escape_string($conexao, $_POST['conteudo']);
 
-    if (!empty($titulo) && !empty($conteudo)) {
-        $sql = "INSERT INTO posts (user_id, title, content, created_at) VALUES ($id_usuario, '$titulo', '$conteudo', NOW())";
-        if (mysqli_query($conexao, $sql)) {
-            header("Location: ../tela_home/index.php?post_sucesso=1");
-            exit();
-        } else {
-            $mensagem = "Erro ao publicar sua dúvida: " . mysqli_error($conexao);
-        }
-    } else {
-        $mensagem = "Por favor, preencha todos os campos!";
-    }
+    $sql = "INSERT INTO duvidas (id_usuario, titulo, conteudo, data_criacao) VALUES ($id_usuario, '$titulo', '$conteudo', NOW())";
+    mysqli_query($conexao, $sql);
+
+    header("Location: ../tela_home/index.php");
 }
-
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -72,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
     <section class="home-section">
+
         <div class="container">
 
             <div class="content">
