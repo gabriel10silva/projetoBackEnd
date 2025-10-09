@@ -34,3 +34,7 @@ function viewReplies(formId) {
     replies.classList.toggle('hidden')
   }
 }
+
+function addDuvida() {
+  window.location.href = 'criar_post.php';
+}

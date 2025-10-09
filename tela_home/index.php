@@ -44,8 +44,6 @@ if ($user) {
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" />
-
-
 </head>
 
 <body>
@@ -120,7 +118,7 @@ if ($user) {
                 <div class="addQuest">
                     <p class="topic-title-page">Possui alguma duvida?</p>
                     <div class="inputQuest">
-                        <button>Adicionar uma duvida</button>
+                        <button onclick="addDuvida()">Adicionar uma duvida</button>
                     </div>
                 </div>
 
