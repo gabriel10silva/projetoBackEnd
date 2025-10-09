@@ -117,134 +117,127 @@ $resultDuvidas = mysqli_query($conexao, $sqlDuvidas);
     </div>
 
     <section class="home-section">
-    <section class="chat">
-        <main class="container">
-            <div class="addQuest">
-                <p class="topic-title-page">Possui alguma dúvida?</p>
-                <div class="inputQuest">
-                    <button>Adicionar uma dúvida</button>
+        <section class="chat">
+            <main class="container">
+                <div class="addQuest">
+                    <p class="topic-title-page">Possui alguma dúvida?</p>
+                    <div class="inputQuest">
+                        <button>Adicionar uma dúvida</button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="post-container">
-                <?php while ($duvida = mysqli_fetch_assoc($resultDuvidas)): 
-                    $postId = $duvida['id'];
-                ?>
-                    <div class="post" id="post<?= $postId ?>">
-                        <!-- Autor do post -->
-                        <div class="post-author">
-                            <img src="<?= !empty($duvida['foto_perfil']) ? '../uploads/'.$duvida['foto_perfil'] : '../uploads/profile.png' ?>" class="author-avatar">
-                            <div class="author-info">
-                                <span class="author-name"><?= htmlspecialchars($duvida['nome_usuario']) ?></span>
+                <div class="post-container">
+                    <?php while ($duvida = mysqli_fetch_assoc($resultDuvidas)):
+                        $postId = $duvida['id'];
+                    ?>
+                        <div class="post" id="post<?= $postId ?>">
+                            <!-- Autor do post -->
+                            <div class="post-author">
+                                <img src="<?= !empty($duvida['foto_perfil']) ? '../uploads/' . $duvida['foto_perfil'] : '../uploads/profile.png' ?>" class="author-avatar">
+                                <div class="author-info">
+                                    <span class="author-name"><?= htmlspecialchars($duvida['nome_usuario']) ?></span>
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Conteúdo do post -->
-                        <div class="post-content">
-                            <h3><?= htmlspecialchars($duvida['titulo']) ?></h3>
-                            <p><?= htmlspecialchars($duvida['conteudo']) ?></p>
-                        </div>
-
-                        <!-- Meta do post -->
-                        <div class="post-meta">
-                            <span class="post-date"><?= date('d/m/Y', strtotime($duvida['data_criacao'])) ?></span>
-                            <div class="post-actions">
-                                <a href="#">Curtir (<?= $duvida['curtidas'] ?>)</a>
-                                <a href="#" onclick="toggleReplyForm('replyForm<?= $postId ?>')">Responder</a>
-                                <a href="#" onclick="viewReplies('replies<?= $postId ?>')">Ver Respostas</a>
+                            <!-- Conteúdo do post -->
+                            <div class="post-content">
+                                <h3><?= htmlspecialchars($duvida['titulo']) ?></h3>
+                                <p><?= htmlspecialchars($duvida['conteudo']) ?></p>
                             </div>
-                        </div>
 
-                        <!-- Formulário do post -->
-                        <div class="reply-form hidden" id="replyForm<?= $postId ?>">
-                            <img src="<?= $foto_perfil ?>" class="author-avatar">
-                            <textarea placeholder="Escreva uma resposta..."></textarea>
-                            <button class="btnSend">Enviar</button>
-                        </div>
+                            <!-- Meta do post -->
+                            <div class="post-meta">
+                                <span class="post-date"><?= date('d/m/Y', strtotime($duvida['data_criacao'])) ?></span>
+                                <div class="post-actions">
+                                    <a href="#">Curtir (<?= $duvida['curtidas'] ?>)</a>
+                                    <a href="#" onclick="toggleReplyForm('replyForm<?= $postId ?>')">Responder</a>
+                                    <a href="#" onclick="viewReplies('replies<?= $postId ?>')">Ver Respostas</a>
+                                </div>
+                            </div>
 
-                        <!-- Respostas -->
-                        <div class="replies hidden" id="replies<?= $postId ?>">
-                            <?php
-                            $sqlRespostas = "SELECT r.*, u.nome_usuario, u.foto_perfil 
+                            <!-- Formulário do post -->
+                            <div class="reply-form hidden" id="replyForm<?= $postId ?>">
+                                <img src="<?= $foto_perfil ?>" class="author-avatar">
+                                <textarea placeholder="Escreva uma resposta..."></textarea>
+                                <button class="btnSend">Enviar</button>
+                            </div>
+
+                            <!-- Respostas -->
+                            <div class="replies hidden" id="replies<?= $postId ?>">
+                                <?php
+                                $sqlRespostas = "SELECT r.*, u.nome_usuario, u.foto_perfil 
                                              FROM respostas r
                                              JOIN usuarios u ON r.id_usuario = u.id
                                              WHERE r.id_duvida = $postId
                                              ORDER BY r.data_resposta ASC";
-                            $resultRespostas = mysqli_query($conexao, $sqlRespostas);
-                            while($resposta = mysqli_fetch_assoc($resultRespostas)):
-                                $replyId = $resposta['id'];
-                            ?>
-                                <div class="post reply-post" id="reply<?= $replyId ?>">
-                                    <div class="post-author">
-                                        <img src="<?= !empty($resposta['foto_perfil']) ? '../uploads/'.$resposta['foto_perfil'] : '../uploads/profile.png' ?>" class="author-avatar">
-                                        <div class="author-info">
-                                            <span class="author-name"><?= htmlspecialchars($resposta['nome_usuario']) ?></span>
+                                $resultRespostas = mysqli_query($conexao, $sqlRespostas);
+                                while ($resposta = mysqli_fetch_assoc($resultRespostas)):
+                                    $replyId = $resposta['id'];
+                                ?>
+                                    <div class="post reply-post" id="reply<?= $replyId ?>">
+                                        <div class="post-author">
+                                            <img src="<?= !empty($resposta['foto_perfil']) ? '../uploads/' . $resposta['foto_perfil'] : '../uploads/profile.png' ?>" class="author-avatar">
+                                            <div class="author-info">
+                                                <span class="author-name"><?= htmlspecialchars($resposta['nome_usuario']) ?></span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="post-content">
-                                        <p><?= htmlspecialchars($resposta['conteudo']) ?></p>
-                                    </div>
-                                    <div class="post-meta">
-                                        <span class="post-date"><?= date('d/m/Y', strtotime($resposta['data_resposta'])) ?></span>
-                                        <div class="post-actions">
-                                            <a href="#">Curtir</a>
-                                            <a href="#" onclick="toggleReplyForm('replyForm<?= $replyId ?>')">Responder</a>
+                                        <div class="post-content">
+                                            <p><?= htmlspecialchars($resposta['conteudo']) ?></p>
                                         </div>
-                                    </div>
+                                        <div class="post-meta">
+                                            <span class="post-date"><?= date('d/m/Y', strtotime($resposta['data_resposta'])) ?></span>
+                                            <div class="post-actions">
+                                                <a href="#">Curtir</a>
+                                                <a href="#" onclick="toggleReplyForm('replyForm<?= $replyId ?>')">Responder</a>
+                                            </div>
+                                        </div>
 
-                                    <!-- Formulário dentro da resposta -->
-                                    <div class="reply-form hidden" id="replyForm<?= $replyId ?>">
-                                        <img src="<?= $foto_perfil ?>" class="author-avatar">
-                                        <textarea placeholder="Escreva uma resposta..."></textarea>
-                                        <button class="btnSend">Enviar</button>
+                                        <!-- Formulário dentro da resposta -->
+                                        <div class="reply-form hidden" id="replyForm<?= $replyId ?>">
+                                            <img src="<?= $foto_perfil ?>" class="author-avatar">
+                                            <textarea placeholder="Escreva uma resposta..."></textarea>
+                                            <button class="btnSend">Enviar</button>
+                                        </div>
                                     </div>
-                                </div>
-                            <?php endwhile; ?>
+                                <?php endwhile; ?>
+                            </div>
+                        </div>
+                    <?php endwhile; ?>
+                </div>
+            </main>
+        </section>
+
+        <!-- Comunidades Recomendadas -->
+        <section class="groups">
+            <div class="container">
+                <h2 class="topic-title-page">Comunidades Recomendadas</h2>
+                <div class="cards">
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="../uploads/profile.png" alt="Foto do grupo">
+                            <h2>Grupo de Matemática</h2>
+                        </div>
+                        <div class="card-body">
+                            <p>Discussões e dúvidas sobre Matemática.</p>
+                            <a href="#" class="btn-entrar">Entrar</a>
                         </div>
                     </div>
-                <?php endwhile; ?>
-            </div>
-        </main>
-    </section>
-
-    <!-- Comunidades Recomendadas -->
-    <section class="groups">
-        <div class="container">
-            <h2 class="topic-title-page">Comunidades Recomendadas</h2>
-            <div class="cards">
-                <div class="card">
-                    <div class="card-header">
-                        <img src="../uploads/profile.png" alt="Foto do grupo">
-                        <h2>Grupo de Matemática</h2>
-                    </div>
-                    <div class="card-body">
-                        <p>Discussões e dúvidas sobre Matemática.</p>
-                        <a href="#" class="btn-entrar">Entrar</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <img src="../uploads/profile.png" alt="Foto do grupo">
-                        <h2>Grupo de Programação</h2>
-                    </div>
-                    <div class="card-body">
-                        <p>Compartilhe códigos e tire dúvidas de programação.</p>
-                        <a href="#" class="btn-entrar">Entrar</a>
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="../uploads/profile.png" alt="Foto do grupo">
+                            <h2>Grupo de Programação</h2>
+                        </div>
+                        <div class="card-body">
+                            <p>Compartilhe códigos e tire dúvidas de programação.</p>
+                            <a href="#" class="btn-entrar">Entrar</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </section>
-</section>
 
-
-
-</body>
-
-</html>
-
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
