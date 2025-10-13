@@ -123,8 +123,23 @@ if (!isset($_SESSION['id'])) {
             </div>
 
             <div class="menssage">
+                <div class="message received">
+                    <img src="../uploads/profile.png" alt="Avatar do Contato" class="message-avatar">
+                    <div class="bubble-content">
+                        <p>Olá! Tudo bem com você?</p>
+                        <span class="time">10:00</span>
+                    </div>
+                </div>
+                
+                <div class="message sent">
+                    <div class="bubble-content">
+                        <p>Tudo ótimo, e por aí?</p>
+                        <span class="time">10:01</span>
+                    </div>
+                </div>
 
             </div>
+
 
             <div class="menssageInput">
                 <input type="text" placeholder="Escreva sua Mensagem....">
