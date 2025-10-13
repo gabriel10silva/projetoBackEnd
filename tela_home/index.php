@@ -7,37 +7,56 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 
-$id = $_SESSION['id'];
-$gravatarUrl = "../uploads/profile.png";
-$foto_perfil = $gravatarUrl;
+$id_usuario_logado = $_SESSION['id'];
+$gravatarUrl = "../uploads/profile.png"; // Fallback URL padrão
 
-// Busca os dados do usuário com MySQLi
-$sql = "SELECT nome_usuario, foto_perfil, role FROM usuarios WHERE id = $id";
-$resultado = mysqli_query($conexao, $sql);
+// 1. PREPARED STATEMENT para buscar dados do usuário logado (SEGURANÇA)
+$stmt = $conexao->prepare("SELECT nome_usuario, foto_perfil, role FROM usuarios WHERE id = ?");
+$stmt->bind_param("i", $id_usuario_logado);
+$stmt->execute();
+$resultado = $stmt->get_result();
 
-if (!$resultado || mysqli_num_rows($resultado) === 0) {
+if (!$resultado || $resultado->num_rows === 0) {
     echo "Usuário não encontrado.";
     exit;
 }
 
-$user = mysqli_fetch_assoc($resultado);
+$user = $resultado->fetch_assoc();
+$stmt->close();
 
-// Define imagem padrão caso não tenha foto
-if ($user) {
-    if (!empty($user['foto_perfil'])) {
-        $foto_path = '../uploads/' . $user['foto_perfil'];
-        if (file_exists($foto_path)) {
-            $foto_perfil = $foto_path;
-        }
+// Define a imagem de perfil do usuário logado
+$foto_perfil_logado = $gravatarUrl;
+if ($user && !empty($user['foto_perfil'])) {
+    $foto_path = '../uploads/' . $user['foto_perfil'];
+    if (file_exists($foto_path)) {
+        $foto_perfil_logado = $foto_path;
     }
 }
 
-$sqlDuvidas = "SELECT d.*, u.nome_usuario, u.foto_perfil 
+// 2. Consulta de Dúvidas (mantida fora do loop, OK)
+$sqlDuvidas = "SELECT d.*, u.nome_usuario, u.foto_perfil, u.id as id_autor_duvida 
                FROM duvidas d 
                JOIN usuarios u ON d.id_usuario = u.id
                ORDER BY d.data_criacao DESC";
 $resultDuvidas = mysqli_query($conexao, $sqlDuvidas);
 
+// 3. OTIMIZAÇÃO: Consulta todas as Respostas de uma vez e as agrupa (PERFORMANCE)
+$respostas_agrupadas = [];
+$sqlTodasRespostas = "SELECT r.*, u.nome_usuario, u.foto_perfil 
+                      FROM respostas r
+                      JOIN usuarios u ON r.id_usuario = u.id
+                      ORDER BY r.data_criacao ASC";
+$resultTodasRespostas = mysqli_query($conexao, $sqlTodasRespostas);
+
+if ($resultTodasRespostas) {
+    while ($resposta = mysqli_fetch_assoc($resultTodasRespostas)) {
+        $id_duvida = $resposta['id_duvida'];
+        if (!isset($respostas_agrupadas[$id_duvida])) {
+            $respostas_agrupadas[$id_duvida] = [];
+        }
+        $respostas_agrupadas[$id_duvida][] = $resposta;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -122,7 +141,7 @@ $resultDuvidas = mysqli_query($conexao, $sqlDuvidas);
                 <div class="addQuest">
                     <p class="topic-title-page">Possui alguma dúvida?</p>
                     <div class="inputQuest">
-                        <button>Adicionar uma dúvida</button>
+                        <a href="criar_post.php"><button>Adicionar uma dúvida</button></a>
                     </div>
                 </div>
 
