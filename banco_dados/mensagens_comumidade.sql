@@ -6,4 +6,4 @@ CREATE TABLE mensagens_comunidade (
     data_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_comunidade) REFERENCES comunidades(id),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
