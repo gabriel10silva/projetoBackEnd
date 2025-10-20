@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nome_usuario'], $_POS
 
     // Prepara a consulta SQL
     $stmt = mysqli_prepare($conexao, $sql);
-    
+
     // Verifica se a preparação da consulta falhou
     if ($stmt === false) {
         // Retorna um erro para o JavaScript tratar
@@ -39,20 +39,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nome_usuario'], $_POS
         $_SESSION['id_usuario'] = $ultimo_id;
         $_SESSION['nome_usuario'] = $nome_usuario;
 
-        // Retorna uma mensagem de sucesso para o JavaScript
-        header('Location: ../tela_home/index.php');
+        // *** MUDANÇA AQUI: Redireciona para o formulário de perfil ***
+        header('Location: ../pesquisa/index.php');
+        exit; // Sempre usar exit após header('Location')
     } else {
         // Retorna uma mensagem de erro para o JavaScript
         header("Location: index.php?Erro ao cadastrar: " . mysqli_stmt_error($stmt));
     }
-    
+
     // Libera os recursos
     mysqli_stmt_close($stmt);
     mysqli_close($conexao);
 
 } else {
     // Redireciona se a requisição não for POST
-    header('Location: index .php');
+    header('Location: index.php');
     exit;
 }
 ?>

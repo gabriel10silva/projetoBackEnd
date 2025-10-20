@@ -99,7 +99,6 @@ $result = mysqli_query($conexao, $sql);
         <div class="header">
             <div class="logo-details">
                 <img src="<?= htmlspecialchars($foto_perfil_logado) ?>" alt="">
-                <span><?= htmlspecialchars($userName) ?></span>
             </div>
         </div>
 
