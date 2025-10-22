@@ -103,7 +103,7 @@ if ($resultTodasRespostas) {
                     <i class="fa-regular fa-comments"></i>
                     <span class="links_name">Comunidades</span>
                 </a>
-                <span class="tooltip">Chat</span>
+                <span class="tooltip">Comunidades</span>
             </li>
             <li>
                 <a href="../tela_myquests/">

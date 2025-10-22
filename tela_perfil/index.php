@@ -74,6 +74,13 @@ if ($user) {
         <span class="tooltip">Chat</span>
       </li>
       <li>
+        <a href="../tela_comunidades/index.html">
+          <i class="fa-regular fa-comments"></i>
+          <span class="links_name">Comunidades</span>
+        </a>
+        <span class="tooltip">Comunidades</span>
+      </li>
+      <li>
         <a href="../tela_myquests/">
           <i class="fa-regular fa-folder"></i>
           <span class="links_name">Minhas Dúvidas</span>
