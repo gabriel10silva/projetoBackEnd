@@ -99,6 +99,13 @@ if ($resultTodasRespostas) {
                 <span class="tooltip">Chat</span>
             </li>
             <li>
+                <a href="../tela_comunidades/index.html">
+                    <i class="fa-regular fa-comments"></i>
+                    <span class="links_name">Comunidades</span>
+                </a>
+                <span class="tooltip">Chat</span>
+            </li>
+            <li>
                 <a href="../tela_myquests/">
                     <i class="fa-regular fa-folder"></i>
                     <span class="links_name">Minhas Dúvidas</span>
@@ -148,11 +155,12 @@ if ($resultTodasRespostas) {
                 <div class="post-container">
                     <?php while ($duvida = mysqli_fetch_assoc($resultDuvidas)):
                         $postId = $duvida['id'];
-                    ?>
+                        ?>
                         <div class="post" id="post<?= $postId ?>">
                             <!-- Autor do post -->
                             <div class="post-author">
-                                <img src="<?= !empty($duvida['foto_perfil']) ? '../uploads/' . $duvida['foto_perfil'] : '../uploads/profile.png' ?>" class="author-avatar">
+                                <img src="<?= !empty($duvida['foto_perfil']) ? '../uploads/' . $duvida['foto_perfil'] : '../uploads/profile.png' ?>"
+                                    class="author-avatar">
                                 <div class="author-info">
                                     <span class="author-name"><?= htmlspecialchars($duvida['nome_usuario']) ?></span>
                                 </div>
@@ -192,19 +200,22 @@ if ($resultTodasRespostas) {
                                 $resultRespostas = mysqli_query($conexao, $sqlRespostas);
                                 while ($resposta = mysqli_fetch_assoc($resultRespostas)):
                                     $replyId = $resposta['id'];
-                                ?>
+                                    ?>
                                     <div class="post reply-post" id="reply<?= $replyId ?>">
                                         <div class="post-author">
-                                            <img src="<?= !empty($resposta['foto_perfil']) ? '../uploads/' . $resposta['foto_perfil'] : '../uploads/profile.png' ?>" class="author-avatar">
+                                            <img src="<?= !empty($resposta['foto_perfil']) ? '../uploads/' . $resposta['foto_perfil'] : '../uploads/profile.png' ?>"
+                                                class="author-avatar">
                                             <div class="author-info">
-                                                <span class="author-name"><?= htmlspecialchars($resposta['nome_usuario']) ?></span>
+                                                <span
+                                                    class="author-name"><?= htmlspecialchars($resposta['nome_usuario']) ?></span>
                                             </div>
                                         </div>
                                         <div class="post-content">
                                             <p><?= htmlspecialchars($resposta['conteudo']) ?></p>
                                         </div>
                                         <div class="post-meta">
-                                            <span class="post-date"><?= date('d/m/Y', strtotime($resposta['data_resposta'])) ?></span>
+                                            <span
+                                                class="post-date"><?= date('d/m/Y', strtotime($resposta['data_resposta'])) ?></span>
                                             <div class="post-actions">
                                                 <a href="#">Curtir</a>
                                                 <a href="#" onclick="toggleReplyForm('replyForm<?= $replyId ?>')">Responder</a>
