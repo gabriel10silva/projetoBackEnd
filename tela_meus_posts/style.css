@@ -306,6 +306,13 @@ section.home-section {
     margin: 40px auto;
 }
 
+.feed-container h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #2090f3;
+}
+
 .tabs {
     display: flex;
     gap: 12px;
