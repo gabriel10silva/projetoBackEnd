@@ -73,6 +73,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             <input type="text" name="nome" required>
         </div>
         <div>
+            <label>Área Foco</label>
+        </div>
+        <div>
             <label>Descrição:</label><br>
             <textarea name="descricao"></textarea>
         </div>
