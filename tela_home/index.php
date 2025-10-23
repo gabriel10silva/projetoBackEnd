@@ -33,30 +33,7 @@ if ($user && !empty($user['foto_perfil'])) {
     }
 }
 
-// 2. Consulta de Dúvidas (mantida fora do loop, OK)
-$sqlDuvidas = "SELECT d.*, u.nome_usuario, u.foto_perfil, u.id as id_autor_duvida 
-               FROM duvidas d 
-               JOIN usuarios u ON d.id_usuario = u.id
-               ORDER BY d.data_criacao DESC";
-$resultDuvidas = mysqli_query($conexao, $sqlDuvidas);
 
-// 3. OTIMIZAÇÃO: Consulta todas as Respostas de uma vez e as agrupa (PERFORMANCE)
-$respostas_agrupadas = [];
-$sqlTodasRespostas = "SELECT r.*, u.nome_usuario, u.foto_perfil 
-                      FROM respostas r
-                      JOIN usuarios u ON r.id_usuario = u.id
-                      ORDER BY r.data_criacao ASC";
-$resultTodasRespostas = mysqli_query($conexao, $sqlTodasRespostas);
-
-if ($resultTodasRespostas) {
-    while ($resposta = mysqli_fetch_assoc($resultTodasRespostas)) {
-        $id_duvida = $resposta['id_duvida'];
-        if (!isset($respostas_agrupadas[$id_duvida])) {
-            $respostas_agrupadas[$id_duvida] = [];
-        }
-        $respostas_agrupadas[$id_duvida][] = $resposta;
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -143,128 +120,65 @@ if ($resultTodasRespostas) {
     </div>
 
     <section class="home-section">
-        <section class="chat">
-            <main class="container">
-                <div class="addQuest">
-                    <p class="topic-title-page">Possui alguma dúvida?</p>
-                    <div class="inputQuest">
-                        <a href="criar_post.php"><button>Adicionar uma dúvida</button></a>
-                    </div>
-                </div>
+        <div class="container">
+    <!-- Post principal -->
+    <div class="post-card">
+      <div class="user-info">
+        <div class="avatar">M</div>
+        <div>
+          <div class="user-name">Maria Silva</div>
+          <div class="post-time">há 2 horas</div>
+        </div>
+      </div>
 
-                <div class="post-container">
-                    <?php while ($duvida = mysqli_fetch_assoc($resultDuvidas)):
-                        $postId = $duvida['id'];
-                        ?>
-                        <div class="post" id="post<?= $postId ?>">
-                            <!-- Autor do post -->
-                            <div class="post-author">
-                                <img src="<?= !empty($duvida['foto_perfil']) ? '../uploads/' . $duvida['foto_perfil'] : '../uploads/profile.png' ?>"
-                                    class="author-avatar">
-                                <div class="author-info">
-                                    <span class="author-name"><?= htmlspecialchars($duvida['nome_usuario']) ?></span>
-                                </div>
-                            </div>
+      <div class="post-content">
+        Acabei de terminar um projeto incrível usando <strong>React</strong> e <strong>Tailwind</strong>! 
+        A experiência de desenvolvimento foi fantástica. Alguém mais aqui usa essa stack?
+      </div>
 
-                            <!-- Conteúdo do post -->
-                            <div class="post-content">
-                                <h3><?= htmlspecialchars($duvida['titulo']) ?></h3>
-                                <p><?= htmlspecialchars($duvida['conteudo']) ?></p>
-                            </div>
+      <div class="post-image">
+        <img src="https://cdn.pixabay.com/photo/2017/08/30/01/05/code-2697088_1280.jpg" alt="Código React">
+      </div>
 
-                            <!-- Meta do post -->
-                            <div class="post-meta">
-                                <span class="post-date"><?= date('d/m/Y', strtotime($duvida['data_criacao'])) ?></span>
-                                <div class="post-actions">
-                                    <a href="#">Curtir (<?= $duvida['curtidas'] ?>)</a>
-                                    <a href="#" onclick="toggleReplyForm('replyForm<?= $postId ?>')">Responder</a>
-                                    <a href="#" onclick="viewReplies('replies<?= $postId ?>')">Ver Respostas</a>
-                                </div>
-                            </div>
+      <div class="post-actions">
+        <span>❤️ 124</span>
+        <span>💬 18</span>
+        <span>🔗 Compartilhar</span>
+      </div>
+    </div>
 
-                            <!-- Formulário do post -->
-                            <div class="reply-form hidden" id="replyForm<?= $postId ?>">
-                                <img src="<?= $foto_perfil ?>" class="author-avatar">
-                                <textarea placeholder="Escreva uma resposta..."></textarea>
-                                <button class="btnSend">Enviar</button>
-                            </div>
+    <!-- Barra lateral -->
+    <aside class="sidebar-community">
+      <h3>Comunidades Recomendadas</h3>
 
-                            <!-- Respostas -->
-                            <div class="replies hidden" id="replies<?= $postId ?>">
-                                <?php
-                                $sqlRespostas = "SELECT r.*, u.nome_usuario, u.foto_perfil 
-                                             FROM respostas r
-                                             JOIN usuarios u ON r.id_usuario = u.id
-                                             WHERE r.id_duvida = $postId
-                                             ORDER BY r.data_resposta ASC";
-                                $resultRespostas = mysqli_query($conexao, $sqlRespostas);
-                                while ($resposta = mysqli_fetch_assoc($resultRespostas)):
-                                    $replyId = $resposta['id'];
-                                    ?>
-                                    <div class="post reply-post" id="reply<?= $replyId ?>">
-                                        <div class="post-author">
-                                            <img src="<?= !empty($resposta['foto_perfil']) ? '../uploads/' . $resposta['foto_perfil'] : '../uploads/profile.png' ?>"
-                                                class="author-avatar">
-                                            <div class="author-info">
-                                                <span
-                                                    class="author-name"><?= htmlspecialchars($resposta['nome_usuario']) ?></span>
-                                            </div>
-                                        </div>
-                                        <div class="post-content">
-                                            <p><?= htmlspecialchars($resposta['conteudo']) ?></p>
-                                        </div>
-                                        <div class="post-meta">
-                                            <span
-                                                class="post-date"><?= date('d/m/Y', strtotime($resposta['data_resposta'])) ?></span>
-                                            <div class="post-actions">
-                                                <a href="#">Curtir</a>
-                                                <a href="#" onclick="toggleReplyForm('replyForm<?= $replyId ?>')">Responder</a>
-                                            </div>
-                                        </div>
+      <div class="community">
+        <div class="community-icon">⚛️</div>
+        <div class="community-info">
+          <h4>Desenvolvedores React</h4>
+          <p>Comunidade para discutir React, Next.js e ecossistema</p>
+        </div>
+        <button>Entrar</button>
+      </div>
 
-                                        <!-- Formulário dentro da resposta -->
-                                        <div class="reply-form hidden" id="replyForm<?= $replyId ?>">
-                                            <img src="<?= $foto_perfil ?>" class="author-avatar">
-                                            <textarea placeholder="Escreva uma resposta..."></textarea>
-                                            <button class="btnSend">Enviar</button>
-                                        </div>
-                                    </div>
-                                <?php endwhile; ?>
-                            </div>
-                        </div>
-                    <?php endwhile; ?>
-                </div>
-            </main>
-        </section>
+      <div class="community">
+        <div class="community-icon">🎨</div>
+        <div class="community-info">
+          <h4>Design UI/UX</h4>
+          <p>Compartilhe designs, dicas e tendências</p>
+        </div>
+        <button>Entrar</button>
+      </div>
 
-        <!-- Comunidades Recomendadas -->
-        <section class="groups">
-            <div class="container">
-                <h2 class="topic-title-page">Comunidades Recomendadas</h2>
-                <div class="cards">
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="../uploads/profile.png" alt="Foto do grupo">
-                            <h2>Grupo de Matemática</h2>
-                        </div>
-                        <div class="card-body">
-                            <p>Discussões e dúvidas sobre Matemática.</p>
-                            <a href="#" class="btn-entrar">Entrar</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <img src="../uploads/profile.png" alt="Foto do grupo">
-                            <h2>Grupo de Programação</h2>
-                        </div>
-                        <div class="card-body">
-                            <p>Compartilhe códigos e tire dúvidas de programação.</p>
-                            <a href="#" class="btn-entrar">Entrar</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+      <div class="community">
+        <div class="community-icon">💻</div>
+        <div class="community-info">
+          <h4>Programação Web</h4>
+          <p>Tudo sobre desenvolvimento web moderno</p>
+        </div>
+        <button>Entrar</button>
+      </div>
+    </aside>
+  </div>
     </section>
 
     <script src="script.js"></script>
