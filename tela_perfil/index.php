@@ -118,89 +118,99 @@ if ($user) {
   </div>
 
   <section class="home-section">
-    <div class="container">
+  <div class="profile-container">
+        <header class="profile-header">
+            <h1 class="title">Meu Perfil</h1>
+            <p class="subtitle">Gerencie suas informações pessoais</p>
+        </header>
 
-      <!-- Perfil - Visualização -->
-      <div class="profile-section">
-        <img src="<?= htmlspecialchars($foto_perfil) ?>" alt="Foto do Usuário">
-        <h1><?= htmlspecialchars($user['nome_usuario']) ?></h1>
-        <p><?= htmlspecialchars($user['email_usuario']) ?></p>
-        <p><?= htmlspecialchars($bio) ?></p>
+        <div class="profile-card">
+            <nav class="profile-tabs">
+                <button class="tab-button active" data-tab="view">
+                    <span><i class="fa-regular fa-user"></i></span>
+                    Visualizar Perfil
+                </button>
+                <button class="tab-button" data-tab="edit">
+                    <span><i class="fa-solid fa-gear"></i></span>
+                    Editar Perfil
+                </button>
+            </nav>
 
-        <div class="stats">
-          <div class="stat">(Número) - Comunidades Ativas</div>
-          <div class="stat">Não sei o que colocar</div>
+            <div class="profile-content">
+                <div class="avatar-section">
+                    <div class="avatar-wrapper">
+                        <img src="<?= $foto_perfil ?>" alt="Ana Silva" class="profile-avatar" id="profile-avatar">
+                        
+                        <div class="avatar-overlay">
+                            <span class="material-icons"><i class="fa-solid fa-download"></i></span>
+                        </div>
+                    </div>
+                    
+                    <p class="avatar-prompt" style="display: none;">Clique para alterar a foto</p>
+                    
+                    <div class="user-details-static">
+                        <span class="name"><?= htmlspecialchars($user['nome_usuario']) ?><span class="material-icons verified-icon"><i class="fa-regular fa-circle-check"></i></span></span>
+                        <span class="status-badge">Membro Ativo</span>
+                    </div>
+                </div>
+
+                <div id="view-mode" class="content-section active">
+                    <div class="info-block">
+                        <span class="envelope"><i class='bx bx-envelope'></i> </span>
+                        <div class="info-text">
+                            <label>Email</label>
+                            <p><?= htmlspecialchars($user['email_usuario']) ?></p>
+                        </div>
+                    </div>
+
+                    <div class="info-block">
+                        <span class="menssage"><i class='bx bx-message-dots'></i></span>
+                        <div class="info-text">
+                            <label>Biografia</label>
+                            <p><?= htmlspecialchars($user['bio']) ?></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="edit-mode" class="content-section">
+                    <form class="edit-form">
+                        <div class="form-group">
+                            <label for="nome">Nome Completo</label>
+                            <input type="text" id="nome" value="<?= htmlspecialchars($user['nome_usuario']) ?>">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" value="<?= htmlspecialchars($user['email_usuario']) ?>" disabled>
+                            <small class="help-text">O email não pode ser alterado</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="biografia">Biografia</label>
+                            <input type="text" id="biografia" value="Desenvolvedora apaixonada por tecnologia e inovação. Amo criar experiências digitais incríveis.">
+                            <small class="char-count">95 caracteres</small>
+                        </div>
+                        
+                        <h3 class="section-title">Alterar Senha</h3>
+                        <p class="help-text">Deixe os campos em branco para manter a senha atual</p>
+
+                        <div class="form-group password-group">
+                            <label for="nova-senha">Nova Senha</label>
+                            <div class="input-with-icon">
+                                <input type="password" id="nova-senha" placeholder="Mínimo 6 caracteres">
+                                <span class="material-icons-outlined visibility-icon">visibility_off</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="save-button">
+                            <span class="material-icons-outlined"><i class='bx bx-save'></i> </span>
+                            Salvar Alterações
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
-
-
-      <!-- Perfil - Edição -->
-      <div class="edit-section">
-        <h2>Editar Perfil</h2>
-        <form id="editForm" action="processar_edit.php" method="post" enctype="multipart/form-data">
-          <div class="form-group">
-            <label for="nome">Nome</label>
-            <input type="text" id="nome" name="nome" placeholder="Seu nome completo">
-          </div>
-
-          <div class="form-group">
-            <label for="senha">Nova Senha</label>
-            <input type="password" name="senha" id="senha" placeholder="Digite nova senha">
-          </div>
-
-          <div class="form-group">
-            <label for="foto">Foto de Perfil</label>
-            <input type="file" name="foto" id="foto">
-          </div>
-
-          <div class="form-group">
-            <label for="bio">Bio / Sobre Você</label>
-            <textarea id="bio" name="bio" rows="4" placeholder="Conte um pouco sobre você..."></textarea>
-          </div>
-
-          <button type="submit">Salvar Alterações</button>
-        </form>
-        <button id="btn-sair" type="button" class="sair">Sair</button>
-      </div>
     </div>
-  </section>
-
-  <!-- Popups de confirmação -->
-  <div id="confirm1" class="popup-confirm">
-    <div class="popup-content">
-      <p>Tem certeza que deseja salvar as alterações?</p>
-      <button id="confirm1-sim">Sim</button>
-      <button id="confirm1-nao">Não</button>
-    </div>
-  </div>
-
-  <div id="confirm2" class="popup-confirm">
-    <div class="popup-content">
-      <p>Confirme novamente para salvar?</p>
-      <button id="confirm2-sim">Confirmar</button>
-      <button id="confirm2-nao">Cancelar</button>
-    </div>
-  </div>
-
-  <div id="confirmacao-final" class="popup-confirm">
-    <div class="popup-content">
-      <p>Alterações confirmadas com sucesso!</p>
-      <button id="btn-fechar-final">Fechar</button>
-    </div>
-  </div>
-
-  <!-- SAIR -->
-
-  <div id="sair1" class="popup-confirm">
-    <div class="popup-content">
-      <p>Tem certeza que quer sair da conta?</p>
-      <button id="sair-sim">Confirmar</button>
-      <button id="sair-nao">Cancelar</button>
-    </div>
-  </div>
-
-
-
   </section>
 
   <script src="script.js"></script>

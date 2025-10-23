@@ -20,91 +20,99 @@ function menuBtnChange() {
   }
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const contentSections = document.querySelectorAll('.content-section');
+  const avatarWrapper = document.getElementById('profile-avatar').closest('.avatar-wrapper');
+  const avatarPrompt = document.querySelector('.avatar-prompt');
+  const userDetailsStatic = document.querySelector('.user-details-static');
 
+  // Função para alternar a aba
+  function switchTab(targetTab) {
+      // 1. Alterna a classe 'active' nos botões da aba
+      tabButtons.forEach(button => {
+          button.classList.remove('active');
+          if (button.dataset.tab === targetTab) {
+              button.classList.add('active');
+          }
+      });
 
-function showEdit() {
-  document.getElementById('edit-section').classList.remove('hidden');
-}
+      // 2. Alterna a visibilidade das seções de conteúdo
+      contentSections.forEach(section => {
+          section.classList.remove('active');
+          if (section.id === targetTab + '-mode') {
+              section.classList.add('active');
+          }
+      });
 
-function cancelEdit() {
-  document.getElementById('edit-section').classList.add('hidden');
-}
-
-function saveProfile() {
-  const newName = document.getElementById('editName').value;
-  const newBio = document.getElementById('editBio').value;
-
-  if (newName !== "") {
-    document.getElementById('displayName').innerText = newName;
+      // 3. Gerencia o estado visual do avatar
+      if (targetTab === 'edit') {
+          avatarWrapper.classList.add('edit-mode');
+          avatarPrompt.style.display = 'block';
+          userDetailsStatic.style.display = 'none';
+      } else { // targetTab === 'view'
+          avatarWrapper.classList.remove('edit-mode');
+          avatarPrompt.style.display = 'none';
+          userDetailsStatic.style.display = 'block';
+      }
   }
-  if (newBio !== "") {
-    document.getElementById('displayBio').innerText = newBio;
+
+  // Adiciona listeners aos botões
+  tabButtons.forEach(button => {
+      button.addEventListener('click', function() {
+          const targetTab = this.dataset.tab;
+          switchTab(targetTab);
+      });
+  });
+
+  // --- Funcionalidade extra: Alternar visibilidade da senha no modo Editar ---
+  const passwordInput = document.getElementById('nova-senha');
+  const visibilityIcon = document.querySelector('.visibility-icon');
+
+  if (visibilityIcon && passwordInput) {
+      visibilityIcon.addEventListener('click', function() {
+          if (passwordInput.type === 'password') {
+              passwordInput.type = 'text';
+              visibilityIcon.textContent = 'visibility'; // Muda o ícone para olho aberto
+          } else {
+              passwordInput.type = 'password';
+              visibilityIcon.textContent = 'visibility_off'; // Muda o ícone para olho fechado
+          }
+      });
   }
 
-  cancelEdit();
-}
+  // --- Funcionalidade extra: Contador de caracteres da Biografia ---
+  const bioInput = document.getElementById('biografia');
+  const charCountElement = document.querySelector('.char-count');
+  const MAX_CHARS = 150; // Definindo um limite máximo
 
+  if (bioInput && charCountElement) {
+      // Inicializa o contador
+      updateCharCount();
+      
+      bioInput.addEventListener('input', updateCharCount);
+      
+      function updateCharCount() {
+          const currentLength = bioInput.value.length;
+          
+          // Simular o limite de 95 caracteres visto na imagem
+          charCountElement.textContent = `${currentLength} caracteres`;
+          
+          // Exemplo de como aplicar limite, embora na imagem não pareça ter um limite visual
+          /*
+          charCountElement.textContent = `${currentLength}/${MAX_CHARS} caracteres`;
+          if (currentLength > MAX_CHARS) {
+              charCountElement.style.color = 'red';
+          } else {
+              charCountElement.style.color = 'var(--text-color-light)';
+          }
+          */
+      }
+  }
 
-// Elementos do formulário e popups edição
-const form = document.getElementById('editForm');
-const confirm1 = document.getElementById('confirm1');
-const confirm2 = document.getElementById('confirm2');
-const confirmFinal = document.getElementById('confirmacao-final');
-const btnFecharFinal = document.getElementById('btn-fechar-final');
-
-// Popups botão sair
-const btnSair = document.getElementById('btn-sair');
-const popupSair = document.getElementById('sair1');
-const sairSim = document.getElementById('sair-sim');
-const sairNao = document.getElementById('sair-nao');
-
-// Ao tentar enviar o form, cancela e abre o primeiro popup de confirmação
-form.addEventListener('submit', function (e) {
-  e.preventDefault();
-  confirm1.style.display = 'flex'; // flex para centralizar (ajuste no CSS)
+  // Garante que o modo de visualização esteja ativo ao carregar
+  switchTab('view'); 
 });
-
-// Botões do primeiro popup
-document.getElementById('confirm1-sim').addEventListener('click', () => {
-  confirm1.style.display = 'none';
-  confirm2.style.display = 'flex';
-});
-
-document.getElementById('confirm1-nao').addEventListener('click', () => {
-  confirm1.style.display = 'none';
-});
-
-// Botões do segundo popup
-document.getElementById('confirm2-sim').addEventListener('click', () => {
-  confirm2.style.display = 'none';
-  confirmFinal.style.display = 'flex';
-});
-
-document.getElementById('confirm2-nao').addEventListener('click', () => {
-  confirm2.style.display = 'none';
-});
-
-// Fechar popup final e enviar o formulário
-btnFecharFinal.addEventListener('click', () => {
-  confirmFinal.style.display = 'none';
-  form.submit(); // Agora sim envia o formulário
-});
-
-// Abrir popup sair
-btnSair.addEventListener('click', () => {
-  popupSair.style.display = 'flex';
-});
-
-// Botão cancelar sair
-sairNao.addEventListener('click', () => {
-  popupSair.style.display = 'none';
-});
-
-// Botão confirmar sair (redireciona para logout)
-sairSim.addEventListener('click', () => {
-  window.location.href = '../config/logout.php';
-});
-
 
 
 
