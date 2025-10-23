@@ -7,6 +7,8 @@ create table usuarios (
     nome_usuario varchar(100),
     email_usario varchar(100) unique not null,
     senha varchar(100) not null,
+    area_foco enum('Humanas', 'Exatas', 'Tecnologia'),
+    role enum('Usuário', 'Administrador') default 'Usuário',
     bio text,
     foto_perfil varchar(255) default '',
     data_cadastro timestamp default current_timestamp

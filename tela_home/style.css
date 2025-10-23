@@ -301,7 +301,6 @@ section.home-section {
 }
 
 .container {
-    max-width: 960px;
     width: 100%;
     max-width: 1320px;
     display: grid;
