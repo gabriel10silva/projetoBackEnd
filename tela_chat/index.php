@@ -50,7 +50,6 @@ $result = mysqli_query($conexao, $sql);
 
 <body>
     <div class="sidebar">
-
         <li>
             <a href="../tela_home/index.php">
                 <i class="bx bx-home"></i>
