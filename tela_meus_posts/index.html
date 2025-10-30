@@ -13,16 +13,10 @@
 <body>
     <div class="sidebar">
         <div class="logo-details">
-            <i class="bx bx-pen icon"></i>
-            <div class="logo_name">projeto back</div>
+            <div class="logo_name">StackShare</div>
             <i class="bx bx-menu" id="btn"></i>
         </div>
         <ul class="nav-list">
-            <li>
-                <i class="bx bx-search"></i>
-                <input type="text" placeholder="Pesquisar..." id="buscar" name="busca" aria-label="Pesquisar" />
-                <span class="tooltip">Pesquisa</span>
-            </li>
             <li>
                 <a href="../tela_home/index.php">
                     <i class="bx bx-home"></i>
@@ -84,6 +78,24 @@
             </li>
         </ul>
     </div>
+
+    <section class="header-section">
+
+        <header>
+            <div class="search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="search" placeholder="Pesquisar...">
+            </div>
+            <ul>
+                <li>
+                    <button><i class="fa-solid fa-plus"></i> Nova Pergunta</button>
+                </li>
+                <li>
+                    <img src="<?= $foto_perfil ?>" alt="Imagem do perfil" />
+                </li>
+            </ul>
+        </header>
+    </section>
 
     <section class="home-section">
         <main class="feed-container">
