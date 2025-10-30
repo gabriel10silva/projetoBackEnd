@@ -54,8 +54,8 @@ if ($user) {
 <body>
   <div class="sidebar">
     <div class="logo-details">
-    <i class="fa-solid fa-layer-group icon"></i>
-    <div class="logo_name">StackShare</div>
+      <i class="fa-solid fa-layer-group icon"></i>
+      <div class="logo_name">StackShare</div>
       <i class="bx bx-menu" id="btn"></i>
     </div>
     <ul class="nav-list">
@@ -86,13 +86,6 @@ if ($user) {
           <span class="links_name">Minhas Dúvidas</span>
         </a>
         <span class="tooltip">Minhas Dúvidas</span>
-      </li>
-      <li>
-        <a href="../tela_perfil/index.php">
-          <i class='bx bx-user'></i>
-          <span class="links_name">Perfil</span>
-        </a>
-        <span class="tooltip">Perfil</span>
       </li>
 
       <li>
@@ -128,7 +121,7 @@ if ($user) {
           <button><i class="fa-solid fa-plus"></i> Nova Pergunta</button>
         </li>
         <li>
-          <img src="<?= $foto_perfil ?>" alt="Imagem do perfil" />
+          <a href="../tela_perfil/index.php"><img src="<?= $foto_perfil ?>" alt="Imagem do perfil" /></a>
         </li>
       </ul>
     </header>

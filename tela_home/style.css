@@ -328,6 +328,9 @@ header ul li img{
     cursor: pointer;
 }
 
+header ul li img:hover {
+    opacity: 0.8;
+}
 
 /* section home */
 
