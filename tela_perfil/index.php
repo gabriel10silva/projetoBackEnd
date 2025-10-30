@@ -139,7 +139,7 @@ if ($user) {
             <div class="profile-content">
                 <div class="avatar-section">
                     <div class="avatar-wrapper">
-                        <img src="<?= $foto_perfil ?>" alt="Ana Silva" class="profile-avatar" id="profile-avatar">
+                        <img src="<?= $foto_perfil ?>" alt="foto_usuario" class="profile-avatar" id="profile-avatar">
                         
                         <div class="avatar-overlay">
                             <span class="material-icons"><i class="fa-solid fa-download"></i></span>
@@ -187,7 +187,7 @@ if ($user) {
                         
                         <div class="form-group">
                             <label for="biografia">Biografia</label>
-                            <input type="text" id="biografia" value="Desenvolvedora apaixonada por tecnologia e inovação. Amo criar experiências digitais incríveis.">
+                            <input type="text" id="biografia" value="<?= htmlspecialchars($user['bio']) ?>">
                             <small class="char-count">95 caracteres</small>
                         </div>
                         

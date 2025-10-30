@@ -352,6 +352,7 @@ section.home-section {
     padding: 15px 20px;
     border: none;
     background: none;
+    gap: 10px;
     cursor: pointer;
     font-size: 16px;
     font-weight: 500;
