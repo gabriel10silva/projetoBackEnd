@@ -8,7 +8,9 @@ if (!isset($_SESSION['id'])) {
 }
 
 $id_usuario_logado = $_SESSION['id'];
-$gravatarUrl = "../uploads/profile.png"; // Fallback URL padrão
+$gravatarUrl = "../uploads/profile.png";
+$foto_perfil = $gravatarUrl;
+
 
 // 1. PREPARED STATEMENT para buscar dados do usuário logado (SEGURANÇA)
 $stmt = $conexao->prepare("SELECT nome_usuario, foto_perfil, role FROM usuarios WHERE id = ?");
@@ -25,14 +27,14 @@ $user = $resultado->fetch_assoc();
 $stmt->close();
 
 // Define a imagem de perfil do usuário logado
-$foto_perfil_logado = $gravatarUrl;
-if ($user && !empty($user['foto_perfil'])) {
-  $foto_path = '../uploads/' . $user['foto_perfil'];
-  if (file_exists($foto_path)) {
-    $foto_perfil_logado = $foto_path;
+if ($user) {
+  if (!empty($user['foto_perfil'])) {
+    $foto_path = '../uploads/' . $user['foto_perfil'];
+    if (file_exists($foto_path)) {
+      $foto_perfil = $foto_path;
+    }
   }
 }
-
 
 ?>
 
@@ -51,16 +53,11 @@ if ($user && !empty($user['foto_perfil'])) {
 <body>
   <div class="sidebar">
     <div class="logo-details">
-      <i class="bx bx-pen icon"></i>
-      <div class="logo_name">projeto back</div>
+    <i class="fa-solid fa-layer-group icon"></i>
+    <div class="logo_name">StackShare</div>
       <i class="bx bx-menu" id="btn"></i>
     </div>
     <ul class="nav-list">
-      <li>
-        <i class="bx bx-search"></i>
-        <input type="text" placeholder="Pesquisar..." id="buscar" name="busca" aria-label="Pesquisar" />
-        <span class="tooltip">Pesquisa</span>
-      </li>
       <li>
         <a href="#">
           <i class="bx bx-home"></i>
@@ -107,7 +104,6 @@ if ($user && !empty($user['foto_perfil'])) {
 
       <li class="profile">
         <div class="profile-details">
-          <img src="<?= htmlspecialchars($foto_perfil) ?>" alt="Imagem do perfil" />
           <div class="name_job">
             <div class="name"><?= htmlspecialchars($user['nome_usuario']) ?></div>
             <div class="job"><?= htmlspecialchars($user['role']) ?></div>
@@ -119,7 +115,26 @@ if ($user && !empty($user['foto_perfil'])) {
     </ul>
   </div>
 
+  <section class="header-section">
+
+    <header>
+      <div class="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="search" placeholder="Pesquisar...">
+      </div>
+      <ul>
+        <li>
+          <button><i class="fa-solid fa-plus"></i> Nova Pergunta</button>
+        </li>
+        <li>
+          <img src="<?= $foto_perfil ?>" alt="Imagem do perfil" />
+        </li>
+      </ul>
+    </header>
+  </section>
+
   <section class="home-section">
+
     <div class="container">
       <!-- Post principal -->
       <div class="post-card">
@@ -147,37 +162,37 @@ if ($user && !empty($user['foto_perfil'])) {
         </div>
       </div>
 
-    <!-- Barra lateral -->
-    <aside class="sidebar-community">
-      <h3>Comunidades Recomendadas</h3>
+      <!-- Barra lateral -->
+      <aside class="sidebar-community">
+        <h3>Comunidades Recomendadas</h3>
 
-      <div class="community">
-        <div class="community-icon">⚛️</div>
-        <div class="community-info">
-          <h4>Desenvolvedores React</h4>
-          <p>Comunidade para discutir React, Next.js e ecossistema</p>
+        <div class="community">
+          <div class="community-icon">⚛️</div>
+          <div class="community-info">
+            <h4>Desenvolvedores React</h4>
+            <p>Comunidade para discutir React, Next.js e ecossistema</p>
+          </div>
+          <button>Entrar</button>
         </div>
-        <button>Entrar</button>
-      </div>
 
-      <div class="community">
-        <div class="community-icon">🎨</div>
-        <div class="community-info">
-          <h4>Design UI/UX</h4>
-          <p>Compartilhe designs, dicas e tendências</p>
+        <div class="community">
+          <div class="community-icon">🎨</div>
+          <div class="community-info">
+            <h4>Design UI/UX</h4>
+            <p>Compartilhe designs, dicas e tendências</p>
+          </div>
+          <button>Entrar</button>
         </div>
-        <button>Entrar</button>
-      </div>
 
-      <div class="community">
-        <div class="community-icon">💻</div>
-        <div class="community-info">
-          <h4>Programação Web</h4>
-          <p>Tudo sobre desenvolvimento web moderno</p>
+        <div class="community">
+          <div class="community-icon">💻</div>
+          <div class="community-info">
+            <h4>Programação Web</h4>
+            <p>Tudo sobre desenvolvimento web moderno</p>
+          </div>
+          <button>Entrar</button>
         </div>
-        <button>Entrar</button>
-      </div>
-    </aside>
+      </aside>
     </div>
   </section>
 
