@@ -90,73 +90,7 @@ if (!isset($_SESSION['id'])) {
     </div>
 
     <section class="home-section">
-        <div class="painel-configuracoes">
-            <aside class="painel-configuracoes__menu-lateral">
-                <h2 class="painel-configuracoes__titulo-menu">Configurações</h2>
-                <nav>
-                    <ul class="painel-configuracoes__lista-menu">
-                        <li><a href="#privacidade" class="painel-configuracoes__item-menu ativo">Privacidade</a></li>
-                        <li><a href="#notificacoes" class="painel-configuracoes__item-menu">Notificações</a></li>
-                        <li><a href="#aparencia" class="painel-configuracoes__item-menu">Aparência</a></li>
-                        <li><a href="#conta" class="painel-configuracoes__item-menu">Minha Conta</a></li>
-                    </ul>
-                </nav>
-            </aside>
-
-            <main class="painel-configuracoes__conteudo">
-                <section id="privacidade" class="painel-configuracoes__cartao">
-                    <h3 class="painel-configuracoes__subtitulo">Privacidade</h3>
-                    <div class="form-grupo">
-                        <label class="form-checkbox">
-                            <input type="checkbox" checked>
-                            Tornar meu perfil visível publicamente.
-                        </label>
-                    </div>
-                    <div class="form-grupo">
-                        <label class="form-checkbox">
-                            <input type="checkbox">
-                            Permitir que outros usuários me enviem mensagens privadas.
-                        </label>
-                    </div>
-                    <button type="submit" class="btn-acao btn-primario">Salvar Alterações</button>
-                </section>
-
-                <section id="notificacoes" class="painel-configuracoes__cartao oculta">
-                    <h3 class="painel-configuracoes__subtitulo">Notificações</h3>
-                    <div class="form-grupo">
-                        <label class="form-checkbox">
-                            <input type="checkbox" checked>
-                            Notificações por e-mail para novas mensagens.
-                        </label>
-                    </div>
-                    <div class="form-grupo">
-                        <label class="form-checkbox">
-                            <input type="checkbox" checked>
-                            Alertas no site para novas respostas em tópicos.
-                        </label>
-                    </div>
-                    <button type="submit" class="btn-acao btn-primario">Salvar Alterações</button>
-                </section>
-
-                <section id="aparencia" class="painel-configuracoes__cartao oculta">
-                    <h3 class="painel-configuracoes__subtitulo">Aparência</h3>
-                    <div class="form-grupo">
-                        <label for="tema" class="form-label">Tema</label>
-                        <select id="tema" class="form-select">
-                            <option value="claro">Claro (Padrão)</option>
-                            <option value="escuro">Escuro</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn-acao btn-primario">Salvar Alterações</button>
-                </section>
-
-                <section id="conta" class="painel-configuracoes__cartao oculta">
-                    <h3 class="painel-configuracoes__subtitulo">Minha Conta</h3>
-                    <button class="btn-acao btn-perigo">Excluir Conta</button>
-                </section>
-            </main>
-        </div>
-
+      
     </section>
 
     <script src="script.js"></script>
