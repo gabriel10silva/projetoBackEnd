@@ -1,3 +1,44 @@
+<?php
+session_start();
+require_once '../config/conexao.php';
+
+if (!isset($_SESSION['id'])) {
+  header("Location: ../tela_login/index.php");
+  exit();
+}
+
+$id_usuario_logado = $_SESSION['id'];
+$gravatarUrl = "../uploads/profile.png";
+$foto_perfil = $gravatarUrl;
+
+
+// 1. PREPARED STATEMENT para buscar dados do usuário logado (SEGURANÇA)
+$stmt = $conexao->prepare("SELECT nome_usuario, foto_perfil, role FROM usuarios WHERE id = ?");
+$stmt->bind_param("i", $id_usuario_logado);
+$stmt->execute();
+$resultado = $stmt->get_result();
+
+if (!$resultado || $resultado->num_rows === 0) {
+  echo "Usuário não encontrado.";
+  exit;
+}
+
+$user = $resultado->fetch_assoc();
+$stmt->close();
+
+// Define a imagem de perfil do usuário logado
+if ($user) {
+  if (!empty($user['foto_perfil'])) {
+    $foto_path = '../uploads/' . $user['foto_perfil'];
+    if (file_exists($foto_path)) {
+      $foto_perfil = $foto_path;
+    }
+  }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -48,14 +89,6 @@
                 <span class="tooltip">Minhas Dúvidas</span>
             </li>
             <li>
-                <a href="../tela_perfil/index.php">
-                    <i class='bx bx-user'></i>
-                    <span class="links_name">Perfil</span>
-                </a>
-                <span class="tooltip">Perfil</span>
-            </li>
-
-            <li>
                 <a href="../tela_config/index.php">
                     <i class='bx bx-cog'></i>
                     <span class="links_name">Configuração</span>
@@ -65,7 +98,6 @@
 
             <li class="profile">
                 <div class="profile-details">
-                    <img src="<?= htmlspecialchars($foto_perfil) ?>" alt="Imagem do perfil" />
                     <div class="name_job">
                         <div class="name">
                             <?= htmlspecialchars($user['nome_usuario']) ?>
